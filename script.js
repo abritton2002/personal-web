@@ -135,7 +135,7 @@ const modalMediaFallback = document.getElementById('modalMediaFallback');
 const modalGallery = document.getElementById('modalGallery');
 const modalClose = document.querySelector('.modal-close');
 const modalBackdrop = document.querySelector('.modal-backdrop');
-const projectCards = document.querySelectorAll('.project-card');
+const projectCards = document.querySelectorAll('.work-card');
 
 // Open Modal
 function openModal(projectId) {
@@ -264,13 +264,14 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Smooth scroll for nav pills
-document.querySelectorAll('.nav-pill').forEach(pill => {
-    pill.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = pill.getAttribute('href');
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+        const targetId = anchor.getAttribute('href');
+        if (targetId === '#') return;
         const targetSection = document.querySelector(targetId);
         if (targetSection) {
+            e.preventDefault();
             const headerHeight = document.querySelector('.site-header').offsetHeight;
             const targetPosition = targetSection.offsetTop - headerHeight;
             window.scrollTo({
@@ -309,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Trigger animations when visible
     const style = document.createElement('style');
     style.textContent = `
-        .project-card.animate-in {
+        .work-card.animate-in {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }

@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex Britton | Forward Deployed Engineer</title>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R8CKWD8E4X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R8CKWD8E4X');
+    </script>
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="Alex Britton - Forward Deployed Engineer at Driveline Baseball. Building data pipelines, biomechanics analysis tools, and AI-assisted systems for athlete development.">
     <meta name="keywords" content="Alex Britton, Forward Deployed Engineer, Driveline Baseball, Sports Technology, Biomechanics, Data Science, Machine Learning">
@@ -46,10 +55,10 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-content">
-            <p class="hero-label">Forward Deployed Engineer at Driveline Baseball</p>
+            <p class="hero-label">Forward Deployed Engineer</p>
             <h1 class="hero-name">Alex Britton</h1>
             <p class="hero-intro">
-                Translating biomechanics and performance data into actionable coaching tools. Building pipelines, dashboards, and AI-assisted systems that drive player development.
+                Translating biomechanics and performance data into actionable tools. Building pipelines, dashboards, and AI-assisted systems.
             </p>
             <div class="hero-actions">
                 <a href="content/alexbrittonresume.pdf" download class="hero-btn">
@@ -88,165 +97,131 @@
         </div>
     </section>
 
-    <!-- Section Navigation -->
-    <nav class="section-nav" id="work">
-        <a href="#data-science" class="nav-pill">Data Science & ML</a>
-        <a href="#ai-work" class="nav-pill">AI Work</a>
-        <a href="#3d-modeling" class="nav-pill">3D Modeling</a>
-        <a href="#frontend" class="nav-pill">Front End</a>
-    </nav>
-
-    <!-- Data Science & Machine Learning Section -->
-    <section id="data-science" class="portfolio-section">
-        <div class="section-header">
-            <h2 class="section-title">Data Science & Machine Learning</h2>
-            <p class="section-description">Predictive modeling, signal processing, and computer vision projects</p>
+    <!-- Unified Work Section -->
+    <section class="work-section" id="work">
+        <div class="work-header">
+            <h2 class="work-title">Project Snapshots</h2>
+            <p class="work-subtitle">A few highlights from my work in data science, AI, 3D modeling, and frontend development</p>
         </div>
-        <div class="portfolio-grid">
+
+        <div class="work-grid">
             <!-- Elbow Torque EMG -->
-            <article class="project-card" data-project="1">
-                <div class="card-image">
+            <article class="work-card" data-project="1">
+                <div class="work-card-image">
                     <img src="content/emgmodel (1).png" alt="Elbow Torque Prediction">
-                    <div class="card-overlay">
-                        <span class="view-project">View Project</span>
+                    <div class="work-card-overlay">
+                        <span class="work-view-btn">View Details</span>
                     </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-tag">Machine Learning</span>
-                    <h3 class="card-title">Elbow Torque EMG</h3>
-                    <p class="card-excerpt">Two-stage ML pipeline • R²=0.76</p>
+                <div class="work-card-body">
+                    <span class="work-category" data-category="ml">Machine Learning</span>
+                    <h3 class="work-card-title">Elbow Torque EMG</h3>
+                    <p class="work-card-desc">Two-stage ML pipeline • R²=0.76</p>
                 </div>
             </article>
 
             <!-- EMG Processing Pipeline -->
-            <article class="project-card" data-project="2">
-                <div class="card-image">
+            <article class="work-card" data-project="2">
+                <div class="work-card-image">
                     <img src="content/emgpipeline.png" alt="EMG Processing Pipeline">
-                    <div class="card-overlay">
-                        <span class="view-project">View Project</span>
+                    <div class="work-card-overlay">
+                        <span class="work-view-btn">View Details</span>
                     </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-tag">Signal Processing</span>
-                    <h3 class="card-title">EMG Processing Pipeline</h3>
-                    <p class="card-excerpt">Sports biomechanics analysis</p>
+                <div class="work-card-body">
+                    <span class="work-category" data-category="pipeline">Data Pipelines</span>
+                    <h3 class="work-card-title">EMG Processing Pipeline</h3>
+                    <p class="work-card-desc">Sports biomechanics analysis</p>
                 </div>
             </article>
 
             <!-- 3D Pose Estimation -->
-            <article class="project-card" data-project="3">
-                <div class="card-image">
+            <article class="work-card" data-project="3">
+                <div class="work-card-image">
                     <img src="content/annotation.jpeg" alt="Multi-Camera 3D Pose">
-                    <div class="card-overlay">
-                        <span class="view-project">View Project</span>
+                    <div class="work-card-overlay">
+                        <span class="work-view-btn">View Details</span>
                     </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-tag">Computer Vision</span>
-                    <h3 class="card-title">3D Pose Estimation</h3>
-                    <p class="card-excerpt">Multi-camera triangulation system</p>
+                <div class="work-card-body">
+                    <span class="work-category" data-category="cv">Computer Vision</span>
+                    <h3 class="work-card-title">3D Pose Estimation</h3>
+                    <p class="work-card-desc">Multi-camera triangulation system</p>
                 </div>
             </article>
 
             <!-- Bat Path Visuals -->
-            <article class="project-card" data-project="4">
-                <div class="card-image">
+            <article class="work-card" data-project="4">
+                <div class="work-card-image">
                     <img src="content/batpathvizzy.jpeg" alt="Bat Path Visuals">
-                    <div class="card-overlay">
-                        <span class="view-project">View Project</span>
+                    <div class="work-card-overlay">
+                        <span class="work-view-btn">View Details</span>
                     </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-tag">Data Visualization</span>
-                    <h3 class="card-title">Bat Path Visuals & Analysis</h3>
-                    <p class="card-excerpt">3D swing visualization system</p>
+                <div class="work-card-body">
+                    <span class="work-category" data-category="viz">Data Visualization</span>
+                    <h3 class="work-card-title">Bat Path Visuals & Analysis</h3>
+                    <p class="work-card-desc">3D swing visualization system</p>
                 </div>
             </article>
-        </div>
-    </section>
 
-    <!-- AI Work Section -->
-    <section id="ai-work" class="portfolio-section">
-        <div class="section-header">
-            <h2 class="section-title">AI Work</h2>
-            <p class="section-description">LLM-powered tools and generative AI applications</p>
-        </div>
-        <div class="portfolio-grid">
             <!-- DL SQL MCP -->
-            <article class="project-card" data-project="5">
-                <div class="card-image">
+            <article class="work-card" data-project="5">
+                <div class="work-card-image">
                     <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop" alt="DL SQL MCP">
-                    <div class="card-overlay">
-                        <span class="view-project">View Project</span>
+                    <div class="work-card-overlay">
+                        <span class="work-view-btn">View Details</span>
                     </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-tag">AI / LLM Tool</span>
-                    <h3 class="card-title">DL SQL MCP</h3>
-                    <p class="card-excerpt">Natural language database queries</p>
+                <div class="work-card-body">
+                    <span class="work-category" data-category="ai">AI / LLM Tool</span>
+                    <h3 class="work-card-title">DL SQL MCP</h3>
+                    <p class="work-card-desc">Natural language database queries</p>
                 </div>
             </article>
-        </div>
-    </section>
 
-    <!-- 3D Modeling Section -->
-    <section id="3d-modeling" class="portfolio-section">
-        <div class="section-header">
-            <h2 class="section-title">3D Modeling</h2>
-            <p class="section-description">CAD design, FEA analysis, and 3D printing projects</p>
-        </div>
-        <div class="portfolio-grid">
             <!-- Edger Case Design -->
-            <article class="project-card" data-project="6">
-                <div class="card-image">
+            <article class="work-card" data-project="6">
+                <div class="work-card-image">
                     <img src="content/edger-case-iso.png" alt="Edger Case 3D Model">
-                    <div class="card-overlay">
-                        <span class="view-project">View Project</span>
+                    <div class="work-card-overlay">
+                        <span class="work-view-btn">View Details</span>
                     </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-tag">3D Modeling</span>
-                    <h3 class="card-title">Edger Case Design</h3>
-                    <p class="card-excerpt">CAD design & 3D printing</p>
+                <div class="work-card-body">
+                    <span class="work-category" data-category="3d">3D Modeling</span>
+                    <h3 class="work-card-title">Edger Case Design</h3>
+                    <p class="work-card-desc">CAD design & 3D printing</p>
+                </div>
+            </article>
+
+            <!-- Motion Capture Frontend -->
+            <article class="work-card" data-project="7">
+                <div class="work-card-image">
+                    <img src="content/mocaptoolsfrontend.png" alt="Motion Capture Frontend">
+                    <div class="work-card-overlay">
+                        <span class="work-view-btn">View Details</span>
+                    </div>
+                </div>
+                <div class="work-card-body">
+                    <span class="work-category" data-category="frontend">Frontend Design</span>
+                    <h3 class="work-card-title">Motion Capture Frontend</h3>
+                    <p class="work-card-desc">8-camera control system UI</p>
                 </div>
             </article>
 
             <!-- Torpedo Bat FEA -->
-            <article class="project-card" data-project="8">
-                <div class="card-image">
+            <article class="work-card" data-project="8">
+                <div class="work-card-image">
                     <img src="content/torpedo.jpeg" alt="Torpedo Bat FEA">
-                    <div class="card-overlay">
-                        <span class="view-project">View Project</span>
+                    <div class="work-card-overlay">
+                        <span class="work-view-btn">View Details</span>
                     </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-tag">FEA Analysis</span>
-                    <h3 class="card-title">Torpedo Bat FEA</h3>
-                    <p class="card-excerpt">Finite element analysis study</p>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <!-- Front End Section -->
-    <section id="frontend" class="portfolio-section">
-        <div class="section-header">
-            <h2 class="section-title">Front End Work</h2>
-            <p class="section-description">Web interfaces and dashboard design</p>
-        </div>
-        <div class="portfolio-grid">
-            <!-- Motion Capture Frontend -->
-            <article class="project-card" data-project="7">
-                <div class="card-image">
-                    <img src="content/mocaptoolsfrontend.png" alt="Motion Capture Frontend">
-                    <div class="card-overlay">
-                        <span class="view-project">View Project</span>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <span class="card-tag">Frontend Design</span>
-                    <h3 class="card-title">Motion Capture Frontend</h3>
-                    <p class="card-excerpt">8-camera control system UI</p>
+                <div class="work-card-body">
+                    <span class="work-category" data-category="fea">FEA Analysis</span>
+                    <h3 class="work-card-title">Torpedo Bat FEA</h3>
+                    <p class="work-card-desc">Finite element analysis study</p>
                 </div>
             </article>
         </div>
