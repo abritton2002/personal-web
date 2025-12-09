@@ -46,7 +46,7 @@ const projectsData = {
     3: {
         title: "3D Pose Estimation System",
         tag: "Computer Vision",
-        description: "A multi-camera 3D human pose estimation system migrated from Theia3D to an open-source OpenCV-based architecture. Features camera intrinsic/extrinsic calibration using checkerboard patterns, 2D pose detection via MediaPipe with 33 body landmarks, multi-view triangulation using Direct Linear Transform (DLT), and C3D file generation for downstream analysis.",
+        description: "A multi-camera 3D human pose estimation system migrated from Theia3D to an open-source OpenCV-based architecture. Features camera intrinsic/extrinsic calibration using checkerboard patterns, 2D pose detection via MediaPipe with 33 body landmarks, multi-view triangulation using Direct Linear Transform (DLT), and C3D file generation for downstream analysis. Developed in collaboration with Brent Hokeness.",
         image: "content/annotation.jpeg",
         tech: ["Python", "OpenCV", "MediaPipe", "NumPy", "ezc3d", "YAML"],
         liveLink: "#",
