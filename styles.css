@@ -1737,3 +1737,270 @@ a {
     }
 }
 
+/* ====================================
+   LIFE SECTION
+   ==================================== */
+.life-section {
+    padding: 5rem 4rem;
+    background: var(--bg-primary);
+    position: relative;
+}
+
+.life-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.life-title {
+    font-size: 3rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.life-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.life-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.life-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.4s var(--ease-out-expo);
+}
+
+.life-card:hover {
+    border-color: var(--border-visible);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.life-card-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    color: white;
+}
+
+.life-card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.life-card-desc {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.life-card-desc strong {
+    color: var(--accent-light);
+}
+
+/* Life Card with Image */
+.life-card.has-image {
+    padding: 0;
+    overflow: hidden;
+}
+
+.life-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.life-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.life-card.has-image:hover .life-card-image img {
+    transform: scale(1.05);
+}
+
+.life-card-content {
+    padding: 1.5rem 2rem 2rem;
+}
+
+/* ====================================
+   LEADERSHIP SECTION
+   ==================================== */
+.leadership-section {
+    padding: 5rem 4rem;
+    background: var(--bg-secondary);
+    position: relative;
+}
+
+.leadership-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.leadership-title {
+    font-size: 3rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.leadership-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.leadership-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.leadership-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.4s var(--ease-out-expo);
+    position: relative;
+}
+
+.leadership-card:hover {
+    border-color: var(--border-visible);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.leadership-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.leadership-period {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+}
+
+.leadership-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 20px;
+    background: rgba(255, 184, 0, 0.15);
+    color: #ffb800;
+}
+
+.leadership-badge.current {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.leadership-card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.leadership-role {
+    font-size: 0.95rem;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.leadership-card-desc {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.leadership-card-desc strong {
+    color: var(--text-primary);
+}
+
+/* Leadership Card with Image */
+.leadership-card.has-image {
+    padding: 0;
+    overflow: hidden;
+}
+
+.leadership-card-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.leadership-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.leadership-card.has-image:hover .leadership-card-image img {
+    transform: scale(1.05);
+}
+
+.leadership-card.has-image .leadership-card-header,
+.leadership-card.has-image .leadership-card-title,
+.leadership-card.has-image .leadership-role,
+.leadership-card.has-image .leadership-card-desc {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.leadership-card.has-image .leadership-card-header {
+    padding-top: 1.5rem;
+}
+
+.leadership-card.has-image .leadership-card-desc {
+    padding-bottom: 2rem;
+}
+
+/* Life & Leadership Responsive */
+@media (max-width: 768px) {
+    .life-section,
+    .leadership-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .life-title,
+    .leadership-title {
+        font-size: 2.25rem;
+    }
+
+    .life-grid,
+    .leadership-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .life-card,
+    .leadership-card {
+        padding: 1.5rem;
+    }
+}
+

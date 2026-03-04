@@ -112,6 +112,18 @@ const projectsData = {
         video: null,
         tweetId: "1907822967536369921",
         additionalImages: null
+    },
+    9: {
+        title: "Baseball Pitch Detection",
+        tag: "Computer Vision",
+        description: "A YOLOv8-based object detection system for tracking baseballs in high-speed pitching video. Trained on 3,000+ manually annotated frames using CVAT, achieving mAP50 of 0.813 and precision of 0.875. Features a custom trajectory scoring algorithm for first-pitch detection that analyzes movement patterns, direction consistency, and temporal density. Includes auto-labeling tools, a local review GUI, and integration with Driveline's production API for real-time pitch analysis.",
+        image: "content/ball-detection.jpg",
+        tech: ["Python", "YOLOv8", "CVAT", "OpenCV", "RTX 3090", "Ultralytics"],
+        liveLink: "#",
+        codeLink: "https://github.com/drivelineresearch/api",
+        video: null,
+        socialLinks: null,
+        additionalImages: null
     }
 };
 
