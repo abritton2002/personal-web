@@ -1819,3 +1819,122 @@ a {
     }
 }
 
+/* ====================================
+   VENTURES SECTION
+   ==================================== */
+.ventures-section {
+    padding: 5rem 4rem;
+    background: var(--bg-secondary);
+    position: relative;
+}
+
+.ventures-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.ventures-title {
+    font-size: 3rem;
+    color: var(--text-primary);
+}
+
+.ventures-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.venture-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    height: 100%;
+}
+
+.venture-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s var(--ease-out-expo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.venture-card:hover {
+    border-color: var(--border-visible);
+    transform: translateY(-2px);
+}
+
+.venture-card-link .venture-card:hover {
+    border-color: var(--accent);
+}
+
+.venture-card-header {
+    margin-bottom: 0.75rem;
+}
+
+.venture-status {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.venture-status.active {
+    color: #22c55e;
+}
+
+.venture-card-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.venture-logo-bottom {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+}
+
+.venture-logo-bottom.uncreated {
+    filter: invert(1);
+    max-width: 160px;
+}
+
+.venture-card-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+/* Ventures Responsive */
+@media (max-width: 768px) {
+    .ventures-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .ventures-title {
+        font-size: 2.25rem;
+    }
+
+    .ventures-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
