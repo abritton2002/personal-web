@@ -156,6 +156,18 @@ const projectsData = {
         video: null,
         socialLinks: null,
         additionalImages: ["content/bebrief-brief.png"]
+    },
+    11: {
+        title: "MoCap iPad Interface",
+        tag: "UI / App Design",
+        description: "An iPad-optimized control interface for Driveline Baseball's motion capture system, designed to let trainers seamlessly operate the full capture pipeline from a tablet on the gym floor. Features athlete search with TRAQ ID integration, pitch type and hitting tag selection, manual and auto capture modes with MPH readout, bat hand/length configuration, and real-time camera status monitoring for 9+ cameras across hitting and pitching setups. Packages all motion capture software into a clean, touch-friendly UI built for fast-paced training environments.",
+        image: "content/mocap-ipad.png",
+        tech: ["JavaScript", "HTML", "CSS", "iPad UI", "Camera API", "Real-time Monitoring"],
+        liveLink: "#",
+        codeLink: "#",
+        video: null,
+        socialLinks: null,
+        additionalImages: null
     }
 };
 

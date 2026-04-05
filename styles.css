@@ -548,8 +548,9 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    padding: 1.5rem;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    aspect-ratio: 16/10;
 }
 
 .phone-mockup-bg > img {
@@ -557,9 +558,9 @@ a {
 }
 
 .phone-mockup {
-    width: 38%;
-    height: 85%;
-    border-radius: 20px;
+    height: 90%;
+    aspect-ratio: 9/19.5;
+    border-radius: 16px;
     border: 2px solid rgba(255, 255, 255, 0.12);
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
@@ -580,6 +581,46 @@ a {
 }
 
 .work-card:hover .phone-mockup-bg .phone-mockup img {
+    transform: none;
+}
+
+/* Tablet mockup card variant */
+.tablet-mockup-bg {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    aspect-ratio: 16/10;
+}
+
+.tablet-mockup-bg > img {
+    display: none;
+}
+
+.tablet-mockup {
+    height: 90%;
+    aspect-ratio: 4/3;
+    border-radius: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    background: #000;
+    transition: transform 0.7s var(--ease-out-expo);
+}
+
+.tablet-mockup img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.work-card:hover .tablet-mockup {
+    transform: scale(1.04);
+}
+
+.work-card:hover .tablet-mockup-bg .tablet-mockup img {
     transform: none;
 }
 
@@ -1740,13 +1781,28 @@ a {
         text-align: center;
     }
 
-    /* Modal */
+    /* Modal - mobile */
+    .modal-container {
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        border: none;
+    }
+
     .modal-details {
-        padding: 1.5rem;
+        padding: 1.25rem;
     }
 
     .modal-title {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .modal-description {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
     }
 
     .modal-actions {
@@ -1758,6 +1814,38 @@ a {
         right: 0.75rem;
         width: 40px;
         height: 40px;
+    }
+
+    .modal-left {
+        max-height: 220px;
+    }
+
+    .modal-media img {
+        max-height: 200px;
+    }
+
+    .modal-gallery img {
+        max-height: 250px;
+    }
+
+    .tech-tags span {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    /* Phone mockup - mobile cards */
+    .phone-mockup {
+        border-radius: 12px;
+    }
+
+    .phone-mockup-bg {
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+    }
+
+    /* Tablet mockup - mobile cards */
+    .tablet-mockup {
+        border-radius: 10px;
     }
 }
 
