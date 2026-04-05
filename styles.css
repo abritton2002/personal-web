@@ -542,6 +542,47 @@ a {
     transform: scale(1.05);
 }
 
+/* Phone mockup card variant */
+.phone-mockup-bg {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.phone-mockup-bg > img {
+    display: none;
+}
+
+.phone-mockup {
+    width: 38%;
+    height: 85%;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+    background: #000;
+    transition: transform 0.7s var(--ease-out-expo);
+}
+
+.phone-mockup img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.work-card:hover .phone-mockup {
+    transform: scale(1.04);
+}
+
+.work-card:hover .phone-mockup-bg .phone-mockup img {
+    transform: none;
+}
+
 .work-card-overlay {
     position: absolute;
     inset: 0;
