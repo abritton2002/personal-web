@@ -92,7 +92,7 @@ const projectsData = {
     },
     7: {
         title: "Motion Capture System Frontend",
-        tag: "Frontend Design",
+        tag: "UI / App Design",
         description: "A web-based control interface for managing an 8-camera Edgertronic high-speed motion capture system. The dashboard provides real-time camera previews, system status monitoring, athlete management, and recording controls. Features include primary/secondary camera designation, pre-trigger buffer management, FPS and ISO settings display, and pitching/hitting mode switching for different assessment types.",
         image: "content/mocaptoolsfrontend.png",
         tech: ["PHP", "JavaScript", "HTML/CSS", "Edgertronic API", "Real-time Preview"],
