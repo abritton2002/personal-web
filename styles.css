@@ -163,6 +163,7 @@ a {
 .hero-content {
     position: relative;
     max-width: 800px;
+    will-change: transform, opacity;
 }
 
 .hero-label {
