@@ -92,7 +92,7 @@ const projectsData = {
     },
     7: {
         title: "Motion Capture System Frontend",
-        tag: "Frontend Design",
+        tag: "UI / App Design",
         description: "A web-based control interface for managing an 8-camera Edgertronic high-speed motion capture system. The dashboard provides real-time camera previews, system status monitoring, athlete management, and recording controls. Features include primary/secondary camera designation, pre-trigger buffer management, FPS and ISO settings display, and pitching/hitting mode switching for different assessment types.",
         image: "content/mocaptoolsfrontend.png",
         tech: ["PHP", "JavaScript", "HTML/CSS", "Edgertronic API", "Real-time Preview"],
@@ -124,6 +124,18 @@ const projectsData = {
         video: null,
         socialLinks: null,
         additionalImages: null
+    },
+    10: {
+        title: "Be Brief — Pilot Briefing App",
+        tag: "UI / App Design",
+        description: "A general aviation pilot briefing app designed to streamline pre-flight preparation and enhance safety. Features a comprehensive route planner with multi-leg support, real-time weather briefings with go/no-go status indicators (VFR category, airspace alerts, wind, daylight, weight, and minimums), route summary with distance, heading, and ETE calculations, daylight analysis with sunset/twilight timing, weight & balance computations, NOTAM integration, and fuel availability by type at departure and destination airports. The dark-themed UI was designed for cockpit readability and quick at-a-glance decision making. Currently pursuing FAA approval.",
+        image: "content/bebrief-planner.png",
+        tech: ["React Native", "UI Design", "Aviation", "Weather APIs", "Route Planning", "FAA Data"],
+        liveLink: "https://flybebrief.com/",
+        codeLink: "https://github.com/abritton2002/BeBrief",
+        video: null,
+        socialLinks: null,
+        additionalImages: ["content/bebrief-brief.png"]
     }
 };
 
