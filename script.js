@@ -124,6 +124,18 @@ const projectsData = {
         video: null,
         socialLinks: null,
         additionalImages: null
+    },
+    10: {
+        title: "Be Brief — Pilot Briefing App",
+        tag: "UI / App Design",
+        description: "A general aviation pilot briefing app designed to streamline pre-flight preparation and enhance safety. Features a comprehensive route planner with multi-leg support, real-time weather briefings with go/no-go status indicators (VFR category, airspace alerts, wind, daylight, weight, and minimums), route summary with distance, heading, and ETE calculations, daylight analysis with sunset/twilight timing, weight & balance computations, NOTAM integration, and fuel availability by type at departure and destination airports. The dark-themed UI was designed for cockpit readability and quick at-a-glance decision making. Currently pursuing FAA approval.",
+        image: "content/bebrief-planner.png",
+        tech: ["UI Design", "Aviation", "Weather APIs", "Route Planning", "FAA Data", "Dark UI"],
+        liveLink: "https://flybebrief.com/",
+        codeLink: "#",
+        video: null,
+        socialLinks: null,
+        additionalImages: ["content/bebrief-brief.png"]
     }
 };
 
