@@ -6,11 +6,31 @@
 // Header scroll behavior
 const siteHeader = document.querySelector('.site-header');
 
+const heroSection = document.querySelector('.hero');
+const heroContent = document.querySelector('.hero-content');
+const scrollIndicator = document.querySelector('.scroll-indicator');
+
 function handleScroll() {
     if (window.scrollY > 100) {
         siteHeader.classList.add('scrolled');
     } else {
         siteHeader.classList.remove('scrolled');
+    }
+
+    // Hero fade-out on scroll
+    if (heroSection && heroContent) {
+        const heroHeight = heroSection.offsetHeight;
+        const scrollProgress = Math.min(window.scrollY / (heroHeight * 0.6), 1);
+        const opacity = 1 - scrollProgress;
+        const scale = 1 - scrollProgress * 0.08;
+        const translateY = window.scrollY * 0.3;
+
+        heroContent.style.opacity = opacity;
+        heroContent.style.transform = `translateY(${translateY}px) scale(${scale})`;
+
+        if (scrollIndicator) {
+            scrollIndicator.style.opacity = Math.max(1 - scrollProgress * 3, 0);
+        }
     }
 }
 
