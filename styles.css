@@ -583,6 +583,45 @@ a {
     transform: none;
 }
 
+/* Tablet mockup card variant */
+.tablet-mockup-bg {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.tablet-mockup-bg > img {
+    display: none;
+}
+
+.tablet-mockup {
+    width: 85%;
+    height: 88%;
+    border-radius: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    background: #000;
+    transition: transform 0.7s var(--ease-out-expo);
+}
+
+.tablet-mockup img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.work-card:hover .tablet-mockup {
+    transform: scale(1.04);
+}
+
+.work-card:hover .tablet-mockup-bg .tablet-mockup img {
+    transform: none;
+}
+
 .work-card-overlay {
     position: absolute;
     inset: 0;
