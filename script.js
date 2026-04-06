@@ -172,14 +172,14 @@ const projectsData = {
     12: {
         title: "Slice of Heaven Vintage Cakes",
         tag: "UI / Web Design",
-        description: "A custom-designed website for a vintage-style cake business. Built from scratch to showcase the brand's personality and make it easy for customers to browse offerings and place orders. Designed with a warm, inviting aesthetic that reflects the handcrafted nature of the products.",
+        description: "A custom-designed website for a vintage-style cake business. Built from scratch to showcase the brand's personality and make it easy for customers to browse offerings and place orders. Features a multi-step order form with instant price estimates, cake design customization, and event details. Designed with a warm, inviting aesthetic that reflects the handcrafted nature of the products.",
         image: "content/soh-main.png",
         tech: ["HTML", "CSS", "JavaScript", "Web Design", "Responsive"],
         liveLink: "https://sliceofheavenvintagecakes.com",
         codeLink: "#",
         video: null,
         socialLinks: null,
-        additionalImages: null
+        additionalImages: ["content/soh-order.png"]
     }
 };
 
