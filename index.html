@@ -425,45 +425,50 @@
         <div class="modal-container">
             <button class="modal-close" aria-label="Close modal">×</button>
             <div class="modal-content">
-                <!-- Left Side: Tweet/Related Posts -->
-                <div class="modal-left" id="modalLeft">
-                    <div class="modal-tweet-section" id="modalTweetSection" style="display: none;">
-                        <h4>Related Posts</h4>
-                        <div class="tweet-embeds" id="modalTweetEmbeds"></div>
-                    </div>
-                    <div class="modal-media" id="modalMediaFallback">
-                        <img src="" alt="" id="modalImage">
-                    </div>
+                <!-- Hero Image -->
+                <div class="modal-hero" id="modalHero">
+                    <img src="" alt="" id="modalImage">
                 </div>
-                
-                <!-- Right Side: Details -->
+
+                <!-- Gallery (additional images + video) -->
+                <div class="modal-gallery-strip" id="modalGalleryStrip" style="display: none;">
+                    <div class="modal-gallery-scroll" id="modalGalleryScroll"></div>
+                </div>
+
+                <!-- Details -->
                 <div class="modal-details">
                     <span class="modal-tag" id="modalTag"></span>
                     <h2 class="modal-title" id="modalTitle"></h2>
                     <p class="modal-description" id="modalDescription"></p>
-                    
-                    <!-- Video Section (if available) -->
-                    <div class="modal-video-section" id="modalVideoSection" style="display: none;">
-                        <h4>Demo Video</h4>
-                        <video id="modalDemoVideo" controls preload="metadata" class="demo-video" playsinline>
-                            <source src="" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    
-                    <!-- Additional Images Section -->
-                    <div class="modal-gallery-section" id="modalGallerySection" style="display: none;">
-                        <h4>More Images</h4>
-                        <div class="modal-gallery" id="modalGallery"></div>
-                    </div>
-                    
+
                     <div class="modal-tech">
-                        <h4>Technologies Used</h4>
                         <div class="tech-tags" id="modalTech"></div>
                     </div>
+
                     <div class="modal-actions">
-                        <a href="#" class="btn btn-primary" id="modalLiveLink">View Live</a>
-                        <a href="#" class="btn btn-secondary" id="modalCodeLink">Source Code</a>
+                        <a href="#" class="btn btn-primary" id="modalLiveLink" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                            Check Out Full Design
+                        </a>
+                        <a href="#" class="btn btn-secondary" id="modalCodeLink" target="_blank">Source Code</a>
+                    </div>
+
+                    <!-- Tweet Section -->
+                    <div class="modal-tweet-section" id="modalTweetSection" style="display: none;">
+                        <h4>Related Posts</h4>
+                        <div class="tweet-embeds" id="modalTweetEmbeds"></div>
+                    </div>
+
+                    <!-- Video Section -->
+                    <div class="modal-video-section" id="modalVideoSection" style="display: none;">
+                        <h4>Demo</h4>
+                        <video id="modalDemoVideo" controls preload="metadata" class="demo-video" playsinline>
+                            <source src="" type="video/mp4">
+                        </video>
                     </div>
                 </div>
             </div>
