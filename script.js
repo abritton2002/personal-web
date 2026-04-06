@@ -185,8 +185,6 @@ const projectsData = {
 
 // DOM Elements
 const modal = document.getElementById('projectModal');
-const modalImage = document.getElementById('modalImage');
-const modalHero = document.getElementById('modalHero');
 const modalTag = document.getElementById('modalTag');
 const modalTitle = document.getElementById('modalTitle');
 const modalDescription = document.getElementById('modalDescription');
@@ -197,56 +195,98 @@ const modalVideoSection = document.getElementById('modalVideoSection');
 const modalDemoVideo = document.getElementById('modalDemoVideo');
 const modalTweetSection = document.getElementById('modalTweetSection');
 const modalTweetEmbeds = document.getElementById('modalTweetEmbeds');
-const modalGalleryStrip = document.getElementById('modalGalleryStrip');
-const modalGalleryScroll = document.getElementById('modalGalleryScroll');
+const carouselTrack = document.getElementById('carouselTrack');
+const carouselDots = document.getElementById('carouselDots');
 const modalClose = document.querySelector('.modal-close');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 const projectCards = document.querySelectorAll('.work-card');
+
+// Carousel state
+let currentSlide = 0;
+let totalSlides = 0;
+let touchStartX = 0;
+let touchEndX = 0;
+
+function goToSlide(index) {
+    currentSlide = Math.max(0, Math.min(index, totalSlides - 1));
+    carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    // Update dots
+    carouselDots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+    });
+}
+
+function buildCarousel(images) {
+    currentSlide = 0;
+    totalSlides = images.length;
+
+    carouselTrack.innerHTML = images.map(src =>
+        `<div class="carousel-slide"><img src="${src}" alt="Project visual"></div>`
+    ).join('');
+    carouselTrack.style.transform = 'translateX(0)';
+
+    // Dots
+    if (totalSlides > 1) {
+        carouselDots.innerHTML = images.map((_, i) =>
+            `<button class="carousel-dot${i === 0 ? ' active' : ''}" data-index="${i}"></button>`
+        ).join('');
+        carouselDots.style.display = 'flex';
+    } else {
+        carouselDots.innerHTML = '';
+        carouselDots.style.display = 'none';
+    }
+}
+
+// Swipe handling on carousel
+document.getElementById('modalCarousel').addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+document.getElementById('modalCarousel').addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+        if (diff > 0) goToSlide(currentSlide + 1);
+        else goToSlide(currentSlide - 1);
+    }
+}, { passive: true });
+
+// Dot clicks
+carouselDots.addEventListener('click', (e) => {
+    if (e.target.classList.contains('carousel-dot')) {
+        goToSlide(parseInt(e.target.dataset.index));
+    }
+});
 
 // Open Modal
 function openModal(projectId) {
     const project = projectsData[projectId];
     if (!project) return;
 
-    // Hero image
-    modalImage.src = project.image;
-    modalImage.alt = project.title;
+    // Build carousel with all images
+    const images = [project.image];
+    if (project.additionalImages) {
+        images.push(...project.additionalImages);
+    }
+    buildCarousel(images);
 
     // Basic info
     modalTag.textContent = project.tag;
     modalTitle.textContent = project.title;
     modalDescription.textContent = project.description;
 
-    // Live link — use "Check Out Full Design" for design projects
+    // Live link
     modalLiveLink.href = project.liveLink;
-    if (project.liveLink === '#') {
-        modalLiveLink.style.display = 'none';
-    } else {
-        modalLiveLink.style.display = 'inline-flex';
-    }
+    modalLiveLink.style.display = project.liveLink === '#' ? 'none' : 'inline-flex';
 
     // Code link
     modalCodeLink.href = project.codeLink;
-    if (project.codeLink === '#') {
-        modalCodeLink.style.display = 'none';
-    } else {
-        modalCodeLink.style.display = 'inline-flex';
-    }
+    modalCodeLink.style.display = project.codeLink === '#' ? 'none' : 'inline-flex';
 
     // Tech tags
     modalTech.innerHTML = project.tech
         .map(tech => `<span>${tech}</span>`)
         .join('');
-
-    // Gallery strip (additional images)
-    if (project.additionalImages && project.additionalImages.length > 0) {
-        modalGalleryStrip.style.display = 'block';
-        modalGalleryScroll.innerHTML = project.additionalImages
-            .map(img => `<img src="${img}" alt="Project visual">`)
-            .join('');
-    } else {
-        modalGalleryStrip.style.display = 'none';
-    }
 
     // Tweet embed
     if (project.tweetId) {
@@ -275,9 +315,10 @@ function openModal(projectId) {
         modalVideoSection.style.display = 'none';
     }
 
-    // Show modal
+    // Show modal and scroll to top
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    document.querySelector('.modal-content').scrollTop = 0;
 }
 
 // Close Modal
@@ -468,7 +509,7 @@ lightbox.addEventListener('wheel', (e) => {
 // Make modal images clickable for lightbox
 document.addEventListener('click', (e) => {
     // Check if clicked element is an image in the modal
-    if (e.target.matches('.modal-hero img, .modal-gallery-scroll img')) {
+    if (e.target.matches('.carousel-slide img')) {
         openLightbox(e.target.src);
     }
 });
