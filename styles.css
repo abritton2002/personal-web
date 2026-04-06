@@ -495,6 +495,27 @@ a {
     line-height: 1.6;
 }
 
+/* Work Groups */
+.work-group {
+    max-width: 1400px;
+    margin: 0 auto 4rem;
+}
+
+.work-group:last-child {
+    margin-bottom: 0;
+}
+
+.work-group-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
 /* Work Grid */
 .work-grid {
     display: grid;
@@ -770,6 +791,15 @@ a {
 
     .work-subtitle {
         font-size: 1rem;
+    }
+
+    .work-group {
+        margin-bottom: 3rem;
+    }
+
+    .work-group-title {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
     }
 
     .work-grid {
