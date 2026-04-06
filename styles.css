@@ -1339,20 +1339,34 @@ a {
     scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
-/* Hero image — full width, prominent */
-.modal-hero {
+/* Image Carousel */
+.modal-carousel {
+    position: relative;
     width: 100%;
     background: var(--bg-primary);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.carousel-slide {
+    min-width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
-    min-height: 200px;
+    min-height: 220px;
+    max-height: 340px;
 }
 
-.modal-hero img {
+.carousel-slide img {
     max-width: 100%;
-    max-height: 320px;
+    max-height: 300px;
     width: auto;
     height: auto;
     object-fit: contain;
@@ -1360,38 +1374,28 @@ a {
     cursor: zoom-in;
 }
 
-/* Gallery strip — horizontal scroll */
-.modal-gallery-strip {
-    background: var(--bg-primary);
-    padding: 0 1.5rem 1.5rem;
-}
-
-.modal-gallery-scroll {
+.carousel-dots {
     display: flex;
-    gap: 0.75rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0 0 1rem;
 }
 
-.modal-gallery-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-.modal-gallery-scroll img {
-    height: 180px;
-    width: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    border: 1px solid var(--border-subtle);
-    background: var(--bg-elevated);
+.carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    flex-shrink: 0;
-    transition: transform 0.3s var(--ease-out-expo);
+    padding: 0;
+    transition: all 0.3s ease;
 }
 
-.modal-gallery-scroll img:hover {
-    transform: scale(1.03);
+.carousel-dot.active {
+    background: var(--accent);
+    width: 20px;
+    border-radius: 4px;
 }
 
 /* ====================================
@@ -1762,21 +1766,14 @@ a {
         border: none;
     }
 
-    .modal-hero {
+    .carousel-slide {
         padding: 1rem;
-        min-height: 160px;
+        min-height: 180px;
+        max-height: 280px;
     }
 
-    .modal-hero img {
+    .carousel-slide img {
         max-height: 240px;
-    }
-
-    .modal-gallery-strip {
-        padding: 0 1rem 1rem;
-    }
-
-    .modal-gallery-scroll img {
-        height: 140px;
     }
 
     .modal-details {
