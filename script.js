@@ -186,7 +186,7 @@ const projectsData = {
 // DOM Elements
 const modal = document.getElementById('projectModal');
 const modalImage = document.getElementById('modalImage');
-const modalVideo = document.getElementById('modalVideo');
+const modalHero = document.getElementById('modalHero');
 const modalTag = document.getElementById('modalTag');
 const modalTitle = document.getElementById('modalTitle');
 const modalDescription = document.getElementById('modalDescription');
@@ -197,10 +197,8 @@ const modalVideoSection = document.getElementById('modalVideoSection');
 const modalDemoVideo = document.getElementById('modalDemoVideo');
 const modalTweetSection = document.getElementById('modalTweetSection');
 const modalTweetEmbeds = document.getElementById('modalTweetEmbeds');
-const modalGallerySection = document.getElementById('modalGallerySection');
-const modalLeft = document.getElementById('modalLeft');
-const modalMediaFallback = document.getElementById('modalMediaFallback');
-const modalGallery = document.getElementById('modalGallery');
+const modalGalleryStrip = document.getElementById('modalGalleryStrip');
+const modalGalleryScroll = document.getElementById('modalGalleryScroll');
 const modalClose = document.querySelector('.modal-close');
 const modalBackdrop = document.querySelector('.modal-backdrop');
 const projectCards = document.querySelectorAll('.work-card');
@@ -210,58 +208,62 @@ function openModal(projectId) {
     const project = projectsData[projectId];
     if (!project) return;
 
+    // Hero image
+    modalImage.src = project.image;
+    modalImage.alt = project.title;
+
     // Basic info
     modalTag.textContent = project.tag;
     modalTitle.textContent = project.title;
     modalDescription.textContent = project.description;
-    modalLiveLink.href = project.liveLink;
-    modalCodeLink.href = project.codeLink;
 
-    // Handle Live Link visibility
+    // Live link — use "Check Out Full Design" for design projects
+    modalLiveLink.href = project.liveLink;
     if (project.liveLink === '#') {
         modalLiveLink.style.display = 'none';
     } else {
         modalLiveLink.style.display = 'inline-flex';
     }
 
-    // Handle Code Link visibility
+    // Code link
+    modalCodeLink.href = project.codeLink;
     if (project.codeLink === '#') {
         modalCodeLink.style.display = 'none';
     } else {
         modalCodeLink.style.display = 'inline-flex';
     }
 
-    // Generate tech tags
+    // Tech tags
     modalTech.innerHTML = project.tech
         .map(tech => `<span>${tech}</span>`)
         .join('');
 
-    // Handle tweet embed section (LEFT SIDE)
+    // Gallery strip (additional images)
+    if (project.additionalImages && project.additionalImages.length > 0) {
+        modalGalleryStrip.style.display = 'block';
+        modalGalleryScroll.innerHTML = project.additionalImages
+            .map(img => `<img src="${img}" alt="Project visual">`)
+            .join('');
+    } else {
+        modalGalleryStrip.style.display = 'none';
+    }
+
+    // Tweet embed
     if (project.tweetId) {
         modalTweetSection.style.display = 'block';
-        modalMediaFallback.style.display = 'none';
         modalTweetEmbeds.innerHTML = `<div id="tweet-container-${project.tweetId}"></div>`;
-        
-        // Use Twitter's widget API to render the tweet
         if (window.twttr && window.twttr.widgets) {
             window.twttr.widgets.createTweet(
                 project.tweetId,
                 document.getElementById(`tweet-container-${project.tweetId}`),
-                {
-                    theme: 'dark',
-                    dnt: true
-                }
+                { theme: 'dark', dnt: true }
             );
         }
     } else {
-        // Show image fallback if no tweet
         modalTweetSection.style.display = 'none';
-        modalMediaFallback.style.display = 'flex';
-        modalImage.src = project.image;
-        modalImage.alt = project.title;
     }
 
-    // Handle demo video section (RIGHT SIDE - first)
+    // Video
     if (project.video) {
         modalVideoSection.style.display = 'block';
         const videoSource = modalDemoVideo.querySelector('source');
@@ -271,16 +273,6 @@ function openModal(projectId) {
         modalDemoVideo.currentTime = 0;
     } else {
         modalVideoSection.style.display = 'none';
-    }
-
-    // Handle additional images gallery (RIGHT SIDE - second)
-    if (project.additionalImages && project.additionalImages.length > 0) {
-        modalGallerySection.style.display = 'block';
-        modalGallery.innerHTML = project.additionalImages
-            .map(img => `<img src="${img}" alt="Project visual">`)
-            .join('');
-    } else {
-        modalGallerySection.style.display = 'none';
     }
 
     // Show modal
@@ -476,7 +468,7 @@ lightbox.addEventListener('wheel', (e) => {
 // Make modal images clickable for lightbox
 document.addEventListener('click', (e) => {
     // Check if clicked element is an image in the modal
-    if (e.target.matches('.modal-media img, .modal-gallery img')) {
+    if (e.target.matches('.modal-hero img, .modal-gallery-scroll img')) {
         openLightbox(e.target.src);
     }
 });
