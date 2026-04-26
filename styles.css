@@ -454,6 +454,73 @@ a {
 }
 
 /* ====================================
+   LATEST STRIP (under hero)
+   ==================================== */
+.latest-section {
+    padding: 4rem 4rem 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--bg-primary);
+}
+
+.latest-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.latest-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+}
+
+.latest-more {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.latest-more:hover {
+    color: var(--text-primary);
+}
+
+.latest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.latest-card .work-card-image {
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+.latest-card .work-card-body {
+    padding: 0.85rem 1rem 1rem;
+}
+
+.latest-card .work-card-title {
+    font-size: 1rem;
+}
+
+@media (max-width: 900px) {
+    .latest-section {
+        padding: 3rem 1.5rem 0.5rem;
+    }
+    .latest-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* ====================================
    UNIFIED WORK SECTION
    ==================================== */
 .work-section {
@@ -514,6 +581,60 @@ a {
     margin-bottom: 2rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--border-subtle);
+}
+
+.work-group-title:has(+ .work-group-subtitle) {
+    margin-bottom: 0.5rem;
+}
+
+.work-group-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0 0 1.75rem 0;
+    letter-spacing: 0.01em;
+}
+
+.work-card-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: transform 0.4s var(--ease-out-expo), background 0.3s ease;
+    z-index: 2;
+}
+
+.work-card-play::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 14px solid rgba(255, 255, 255, 0.95);
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    margin-left: 4px;
+}
+
+.work-card:hover .work-card-play {
+    transform: translate(-50%, -50%) scale(1.08);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-description p {
+    margin: 0 0 0.9rem 0;
+}
+
+.modal-description p:last-child {
+    margin-bottom: 0;
 }
 
 /* Work Grid */
@@ -1503,25 +1624,17 @@ a {
     border-color: var(--accent);
 }
 
-/* Video Section */
+/* Video Section (now lives at the top of the modal) */
 .modal-video-section {
-    margin-top: 1.25rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border-subtle);
-}
-
-.modal-video-section h4 {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.75rem;
+    width: 100%;
+    background: var(--bg-primary);
+    flex-shrink: 0;
 }
 
 .demo-video {
+    display: block;
     width: 100%;
-    max-height: 260px;
-    border-radius: 10px;
+    max-height: 70vh;
     background: var(--bg-primary);
     object-fit: contain;
 }

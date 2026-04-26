@@ -180,6 +180,66 @@ const projectsData = {
         video: null,
         socialLinks: null,
         additionalImages: ["content/soh-order.png"]
+    },
+    13: {
+        title: "Agentic Coding Loop",
+        tag: "Walkthrough",
+        description: "Most \"vibe coding\" failures aren't the model's fault. The pattern I see constantly is vague prompt in, mediocre code out, blame the LLM, tweet about how AI can't really code. Taking the time to learn agentic coding from people who do it at a high level gives you a simple solution: a better loop.\n\nWhat's been working for me is a minimal fork on a mixture-of-agents framework Kyle Boddy open sourced.\n\n1. One model drafts a plan first. I review and approve before any code is written. (Anthropic Claude Code)\n2. A second model implements against the approved plan.\n3. A different provider reviews the diff (OpenAI Codex).\n\nIt's the same loop good engineering teams have run for decades. We just get to run it in minutes instead of days now. This video walks through a simple version of that loop end-to-end.",
+        image: "content/demo-coding-loops.jpg",
+        tech: ["Claude Code", "OpenAI Codex", "Mixture of Agents", "Agentic Workflows"],
+        liveLink: null,
+        codeLink: null,
+        video: "content/demo-coding-loops.mp4",
+        socialLinks: null,
+        additionalImages: null
+    },
+    14: {
+        title: "CV Pitch Detection Pipeline",
+        tag: "Walkthrough",
+        description: "A quick video showing part of the workflow behind a baseball computer vision project I've been working on in my free time at Driveline Baseball.\n\nI walk through how I used Roboflow as one part of the pipeline for uploading images, organizing and versioning the dataset, and then carrying that into our own training and post-processing workflow.\n\nThe point of the video isn't really the tooling by itself — it's about showing how the whole process connects. Going from raw image data, to dataset management, to training, to the final visual output is something that never really gets much love. A lot of people only ever see the finished result, but the interesting part is how all the pieces actually tie together to make that result possible. In this case, that meant turning labeled footage into a system that could eventually play a role in our broader tech stack.",
+        image: "content/demo-cv-pitch.jpg",
+        tech: ["Roboflow", "YOLOv8", "Python", "Dataset Versioning", "Training Pipelines"],
+        liveLink: null,
+        codeLink: null,
+        video: "content/demo-cv-pitch.mp4",
+        socialLinks: null,
+        additionalImages: null
+    },
+    15: {
+        title: "GPU Thermal Throttling Debug",
+        tag: "Walkthrough",
+        description: "Our computer vision processing server was crashing endlessly and processing at snail speed.\n\nOne card was hitting 84°C under load with nearly 2 hours of accumulated thermal throttling — silently killing performance on every single batch and actually crashing the server.\n\nWanted to document the process from start to finish, with some use of Claude Code and some trial and error. Good example of the importance of thermal regulation in hardware, especially at scale.",
+        image: "content/demo-gpu-thermal.jpg",
+        tech: ["GPU Diagnostics", "Thermal Profiling", "Claude Code", "Hardware Debugging"],
+        liveLink: null,
+        codeLink: null,
+        video: "content/demo-gpu-thermal.mp4",
+        socialLinks: null,
+        additionalImages: null
+    },
+    16: {
+        title: "Claude Code + Blender Bracket",
+        tag: "Walkthrough",
+        description: "Just designed and 3D printed a mounting bracket with nothing but Claude Code and a ruler.\n\nI described a mounting bracket I needed for an LED board project (hole spacing, fastener sizes, thickness) and watched Claude Code cook. It worked live in Blender, verified the mesh was watertight, and exported a print-ready STL directly to my desktop.\n\nWhat impressed me most was that it actually was aware of some important 3D printing concepts. When I said \"make the outer holes M4,\" it knew the difference between a clearance hole and a tap drill. When I changed the inner spacing, it rebuilt and re-exported without me touching a file. When I asked if it was ready to print, it actually checked the mesh for any poor design.\n\nThis is what AI-assisted hardware prototyping can look like in the future. The gap between \"I need a part\" and \"it's printing\" is getting smaller.",
+        image: "content/demo-blender-bracket.jpg",
+        tech: ["Claude Code", "Blender", "STL Export", "3D Printing", "CAD"],
+        liveLink: null,
+        codeLink: null,
+        video: "content/demo-blender-bracket.mp4",
+        socialLinks: null,
+        additionalImages: null
+    },
+    17: {
+        title: "PR From iPhone with Codex",
+        tag: "Walkthrough",
+        description: "Just opened a PR from my iPhone in like 5 minutes.\n\nWasn't anything crazy, but I didn't open my laptop at all. There are some cases where I'm working out or just relaxing and I come across an idea for a project. I used to type it into my notes to save it for later — now I can literally deploy a cloud agent.\n\nUsed Codex to make an update and open the PR. I mostly just described what I wanted and sanity checked it.\n\nThese phone-based cloud tools aren't for every task, but they definitely have valid use cases. Curious if others are using this kind of workflow regularly yet or if it still feels too clunky.",
+        image: "content/demo-pr-iphone.jpg",
+        tech: ["OpenAI Codex Cloud", "GitHub", "Mobile Workflow"],
+        liveLink: null,
+        codeLink: null,
+        video: "content/demo-pr-iphone.mp4",
+        socialLinks: null,
+        additionalImages: null
     }
 };
 
@@ -263,25 +323,39 @@ function openModal(projectId) {
     const project = projectsData[projectId];
     if (!project) return;
 
-    // Build carousel with all images
-    const images = [project.image];
-    if (project.additionalImages) {
-        images.push(...project.additionalImages);
+    // Build carousel — hide it entirely when this is a video-first project
+    // (video is shown at the top instead of the static poster)
+    const carousel = document.getElementById('modalCarousel');
+    const hasExtraImages = Array.isArray(project.additionalImages) && project.additionalImages.length > 0;
+    if (project.video && !hasExtraImages) {
+        carousel.style.display = 'none';
+    } else {
+        carousel.style.display = '';
+        const images = [project.image];
+        if (project.additionalImages) {
+            images.push(...project.additionalImages);
+        }
+        buildCarousel(images);
     }
-    buildCarousel(images);
 
     // Basic info
     modalTag.textContent = project.tag;
     modalTitle.textContent = project.title;
-    modalDescription.textContent = project.description;
+    const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    modalDescription.innerHTML = project.description
+        .split(/\n\n+/)
+        .map(p => `<p>${escapeHtml(p).replace(/\n/g, '<br>')}</p>`)
+        .join('');
 
     // Live link
-    modalLiveLink.href = project.liveLink;
-    modalLiveLink.style.display = project.liveLink === '#' ? 'none' : 'inline-flex';
+    const hasLive = project.liveLink && project.liveLink !== '#';
+    modalLiveLink.href = hasLive ? project.liveLink : '#';
+    modalLiveLink.style.display = hasLive ? 'inline-flex' : 'none';
 
     // Code link
-    modalCodeLink.href = project.codeLink;
-    modalCodeLink.style.display = project.codeLink === '#' ? 'none' : 'inline-flex';
+    const hasCode = project.codeLink && project.codeLink !== '#';
+    modalCodeLink.href = hasCode ? project.codeLink : '#';
+    modalCodeLink.style.display = hasCode ? 'inline-flex' : 'none';
 
     // Tech tags
     modalTech.innerHTML = project.tech
@@ -306,6 +380,7 @@ function openModal(projectId) {
     // Video
     if (project.video) {
         modalVideoSection.style.display = 'block';
+        modalDemoVideo.setAttribute('poster', project.image);
         const videoSource = modalDemoVideo.querySelector('source');
         videoSource.src = project.video;
         videoSource.type = 'video/mp4';
@@ -313,6 +388,7 @@ function openModal(projectId) {
         modalDemoVideo.currentTime = 0;
     } else {
         modalVideoSection.style.display = 'none';
+        modalDemoVideo.removeAttribute('poster');
     }
 
     // Show modal and scroll to top
