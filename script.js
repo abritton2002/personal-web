@@ -229,6 +229,18 @@ const projectsData = {
         socialLinks: null,
         additionalImages: null
     },
+    18: {
+        title: "Biomech Viewer",
+        tag: "Design",
+        description: "A 3D biomechanics lab in the browser. Load motion capture trials from our database, play them back frame by frame, and compare multiple athletes on a single synchronized timeline.\n\nBuilt with a FastAPI backend and a vanilla Three.js frontend — no bundler, no framework overhead. The backend exposes JSON APIs for athletes, trials, and dynamic time warping (DTW), while the browser handles all the 3D rendering and signal plotting.\n\nThe core of the app is a sync frame pipeline: one global playhead drives every loaded skeleton simultaneously. DTW lets you warp two trials into alignment so you can compare mechanics directly, even when movement timings differ. Plotly signal panels stay locked to the same playhead so kinematics and time-series data stay in sync as you scrub.\n\nUsed daily at Driveline by coaches and sport scientists to inspect pitcher and hitter mechanics.",
+        image: "content/Screenshot 2026-04-27 174439.png",
+        tech: ["FastAPI", "Three.js", "Python", "SQLAlchemy", "Plotly", "Dynamic Time Warping"],
+        liveLink: "#",
+        codeLink: "#",
+        video: "content/demo-skeleton-viewer.mp4",
+        socialLinks: null,
+        additionalImages: null
+    },
     17: {
         title: "PR From iPhone with Codex",
         tag: "Walkthrough",
