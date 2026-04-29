@@ -38,8 +38,7 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=General+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Mono:ital,wght@0,400;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </head>
@@ -48,14 +47,19 @@
     <header class="site-header">
         <nav class="header-nav">
             <a href="#" class="nav-logo">AB</a>
-            <div class="nav-links">
+            <div class="nav-links" id="navLinks">
                 <a href="#work" class="nav-link">Work</a>
                 <a href="#demos" class="nav-link">Demos</a>
+                <a href="#ventures" class="nav-link">Ventures</a>
                 <a href="#research" class="nav-link">Research</a>
                 <a href="#about" class="nav-link">About</a>
-                <a href="#ventures" class="nav-link">Ventures</a>
                 <a href="mailto:abritton2002@gmail.com" class="nav-link">Contact</a>
             </div>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
@@ -111,50 +115,52 @@
 
     <!-- Latest -->
     <section class="latest-section" id="latest">
-        <div class="latest-header">
-            <span class="latest-eyebrow">Latest</span>
-            <a href="#work" class="latest-more">View all work →</a>
-        </div>
-        <div class="latest-grid">
-            <article class="work-card latest-card" data-project="13">
-                <div class="work-card-image">
-                    <img src="content/demo-coding-loops.jpg" alt="Agentic coding loop walkthrough">
-                    <div class="work-card-play"></div>
-                    <div class="work-card-overlay">
-                        <span class="work-view-btn">Watch Demo</span>
+        <div class="latest-group">
+            <div class="latest-group-header">
+                <span class="latest-eyebrow">Latest</span>
+                <a href="#work" class="latest-more">View all →</a>
+            </div>
+            <div class="work-grid">
+                <article class="work-card" data-project="13">
+                    <div class="work-card-image">
+                        <img src="content/demo-coding-loops.jpg" alt="Agentic coding loop walkthrough">
+                        <div class="work-card-play"></div>
+                        <div class="work-card-overlay">
+                            <span class="work-view-btn">Watch Demo</span>
+                        </div>
                     </div>
-                </div>
-                <div class="work-card-body">
-                    <h3 class="work-card-title">Agentic Coding Loop</h3>
-                </div>
-            </article>
+                    <div class="work-card-body">
+                        <h3 class="work-card-title">Agentic Coding Loop</h3>
+                    </div>
+                </article>
 
-            <article class="work-card latest-card" data-project="18">
-                <div class="work-card-image">
-                    <img src="content/Screenshot 2026-04-27 174439.png" alt="Biomech Viewer 3D skeleton visualization">
-                    <div class="work-card-play"></div>
-                    <div class="work-card-overlay">
-                        <span class="work-view-btn">View Details</span>
+                <article class="work-card" data-project="18">
+                    <div class="work-card-image">
+                        <img src="content/Screenshot 2026-04-27 174439.png" alt="Biomech Viewer 3D skeleton visualization">
+                        <div class="work-card-play"></div>
+                        <div class="work-card-overlay">
+                            <span class="work-view-btn">View Details</span>
+                        </div>
                     </div>
-                </div>
-                <div class="work-card-body">
-                    <h3 class="work-card-title">Biomech Viewer</h3>
-                </div>
-            </article>
+                    <div class="work-card-body">
+                        <h3 class="work-card-title">Biomech Viewer</h3>
+                    </div>
+                </article>
 
-            <article class="work-card latest-card" data-project="10">
-                <div class="work-card-image phone-mockup-bg">
-                    <div class="phone-mockup">
-                        <img src="content/bebrief-planner.png" alt="Be Brief Pilot Briefing App">
+                <article class="work-card" data-project="10">
+                    <div class="work-card-image phone-mockup-bg">
+                        <div class="phone-mockup">
+                            <img src="content/bebrief-planner.png" alt="Be Brief Pilot Briefing App">
+                        </div>
+                        <div class="work-card-overlay">
+                            <span class="work-view-btn">View Details</span>
+                        </div>
                     </div>
-                    <div class="work-card-overlay">
-                        <span class="work-view-btn">View Details</span>
+                    <div class="work-card-body">
+                        <h3 class="work-card-title">Be Brief</h3>
                     </div>
-                </div>
-                <div class="work-card-body">
-                    <h3 class="work-card-title">Be Brief</h3>
-                </div>
-            </article>
+                </article>
+            </div>
         </div>
     </section>
 
@@ -440,6 +446,75 @@
         </div>
     </section>
 
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-header">
+            <h2 class="about-title">About</h2>
+        </div>
+
+        <div class="about-content">
+            <div class="about-text">
+                <p>At the center of how I try to live is discipline and commitment. I believe consistency matters more than intensity. Motivation comes and goes, but discipline keeps you moving forward when motivation is gone. Whether I'm learning something new, working through a difficult problem, or growing in my faith, I try to approach it the same way. Show up, be consistent, and focus on improving a little at a time.</p>
+
+                <p>My faith is a large part of who I am. I'm a Christian, and studying scripture shapes how I think about work, learning, and life. It gives me a framework for taking things seriously without losing sight of what any of it is actually for.</p>
+
+                <p>I studied mechanical engineering at Embry-Riddle and now build data pipelines and analysis tools. I'm drawn to environments with a lot of information but not yet a clear understanding, and I'm deeply passionate about serving others and making an impact on the world through the work I do.</p>
+
+                <p>Lately, a lot of my energy goes into agentic workflows and LLM-assisted coding. I'm fascinated by how much leverage these tools give a single builder, and I spend a lot of time exploring how to design systems where humans and models collaborate well. You can find some demo videos of what I've been building on my <a href="https://www.linkedin.com/in/alexander-britton-0bb687205/" target="_blank" rel="noopener">LinkedIn</a>.</p>
+
+                <p>I try not to focus too much on titles or accomplishments. Those things change. What matters more is the kind of person you are becoming and the habits you build along the way. Stay curious, stay disciplined, keep pursuing truth. Progress usually follows.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ventures Section -->
+    <section class="ventures-section" id="ventures">
+        <div class="ventures-header">
+            <h2 class="ventures-title">Ventures</h2>
+        </div>
+
+        <div class="ventures-grid">
+            <!-- BeBrief -->
+            <a href="https://flybebrief.com/" target="_blank" class="venture-card-link">
+                <article class="venture-card">
+                    <div class="venture-card-header">
+                        <span class="venture-status active">● Active</span>
+                    </div>
+                    <h3 class="venture-card-title">BeBrief</h3>
+                    <p class="venture-card-desc">Pilot briefing app for general aviation. Streamlining pre-flight preparation and enhancing safety. Pursuing FAA approval.</p>
+                    <div class="venture-card-footer">
+                        <img src="content/bebrief-logo.png" alt="BeBrief" class="venture-logo-bottom">
+                        <span class="venture-link-hint">flybebrief.com ↗</span>
+                    </div>
+                </article>
+            </a>
+
+            <!-- UNCREATED -->
+            <a href="https://uncreated.shop/" target="_blank" class="venture-card-link">
+                <article class="venture-card">
+                    <div class="venture-card-header">
+                        <span class="venture-status active">● Active</span>
+                    </div>
+                    <h3 class="venture-card-title">UNCREATED LLC</h3>
+                    <p class="venture-card-desc">Custom streetwear brand. Co-founded with two partners. End-to-end operations from product design to fulfillment.</p>
+                    <div class="venture-card-footer">
+                        <img src="content/uncreated-logo.png" alt="UNCREATED" class="venture-logo-bottom uncreated">
+                        <span class="venture-link-hint">uncreated.shop ↗</span>
+                    </div>
+                </article>
+            </a>
+
+            <!-- CerebriTech -->
+            <article class="venture-card">
+                <div class="venture-card-header">
+                    <span class="venture-status">2021 – 2023</span>
+                </div>
+                <h3 class="venture-card-title">CerebriTech</h3>
+                <p class="venture-card-desc">Health-tech startup for real-time concussion detection. Co-founder & CEO. Top 5 Entrepreneur Under 25, Orlando Business Journal.</p>
+            </article>
+        </div>
+    </section>
+
     <!-- Research Section -->
     <section class="research-section" id="research">
         <div class="research-header">
@@ -495,69 +570,6 @@
                         View PDF
                     </a>
                 </div>
-            </article>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section" id="about">
-        <div class="about-header">
-            <h2 class="about-title">About</h2>
-        </div>
-
-        <div class="about-content">
-            <div class="about-text">
-                <p>At the center of how I try to live is discipline and commitment. I believe consistency matters more than intensity. Motivation comes and goes, but discipline keeps you moving forward when motivation is gone. Whether I'm learning something new, working through a difficult problem, or growing in my faith, I try to approach it the same way. Show up, be consistent, and focus on improving a little at a time.</p>
-
-                <p>My faith is a large part of who I am. I'm a Christian, and studying scripture shapes how I think about work, learning, and life. It gives me a framework for taking things seriously without losing sight of what any of it is actually for.</p>
-
-                <p>I studied mechanical engineering at Embry-Riddle and now build data pipelines and analysis tools. I'm drawn to environments with a lot of information but not yet a clear understanding, and I'm deeply passionate about serving others and making an impact on the world through the work I do.</p>
-
-                <p>Lately, a lot of my energy goes into agentic workflows and LLM-assisted coding. I'm fascinated by how much leverage these tools give a single builder, and I spend a lot of time exploring how to design systems where humans and models collaborate well. You can find some demo videos of what I've been building on my <a href="https://www.linkedin.com/in/alexander-britton-0bb687205/" target="_blank" rel="noopener">LinkedIn</a>.</p>
-
-                <p>I try not to focus too much on titles or accomplishments. Those things change. What matters more is the kind of person you are becoming and the habits you build along the way. Stay curious, stay disciplined, keep pursuing truth. Progress usually follows.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ventures Section -->
-    <section class="ventures-section" id="ventures">
-        <div class="ventures-header">
-            <h2 class="ventures-title">Ventures</h2>
-        </div>
-
-        <div class="ventures-grid">
-            <!-- BeBrief -->
-            <a href="https://flybebrief.com/" target="_blank" class="venture-card-link">
-                <article class="venture-card">
-                    <div class="venture-card-header">
-                        <span class="venture-status active">Active</span>
-                    </div>
-                    <h3 class="venture-card-title">BeBrief</h3>
-                    <p class="venture-card-desc">Pilot briefing app for general aviation. Streamlining pre-flight preparation and enhancing safety. Pursuing FAA approval.</p>
-                    <img src="content/bebrief-logo.png" alt="BeBrief" class="venture-logo-bottom">
-                </article>
-            </a>
-
-            <!-- UNCREATED -->
-            <a href="https://uncreated.shop/" target="_blank" class="venture-card-link">
-                <article class="venture-card">
-                    <div class="venture-card-header">
-                        <span class="venture-status active">Active</span>
-                    </div>
-                    <h3 class="venture-card-title">UNCREATED LLC</h3>
-                    <p class="venture-card-desc">Custom streetwear brand. Co-founded with two partners. End-to-end operations from product design to fulfillment.</p>
-                    <img src="content/uncreated-logo.png" alt="UNCREATED" class="venture-logo-bottom uncreated">
-                </article>
-            </a>
-
-            <!-- CerebriTech -->
-            <article class="venture-card">
-                <div class="venture-card-header">
-                    <span class="venture-status">2021 - 2023</span>
-                </div>
-                <h3 class="venture-card-title">CerebriTech</h3>
-                <p class="venture-card-desc">Health-tech startup for real-time concussion detection. Co-founder & CEO. Top 5 Entrepreneur Under 25, Orlando Business Journal.</p>
             </article>
         </div>
     </section>
