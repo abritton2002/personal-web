@@ -270,6 +270,22 @@ a {
     margin: 0 auto 2.5rem;
     opacity: 0;
     animation: fadeInUp 0.8s var(--ease-out-expo) 0.2s forwards;
+    min-height: 2em;
+}
+
+.hero-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    animation: blink 0.75s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .hero-actions {

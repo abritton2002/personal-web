@@ -692,3 +692,51 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cards are already observed above
 });
 
+// ====================================
+// HERO TYPEWRITER
+// ====================================
+(function () {
+    const phrases = [
+        "Building user-friendly systems.",
+        "Surfacing insights from data.",
+        "Teaching what I learn.",
+        "Using AI along the way.",
+        "Shipping things that matter."
+    ];
+
+    const el = document.getElementById('heroTyped');
+    if (!el) return;
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function tick() {
+        const phrase = phrases[phraseIndex];
+
+        if (isDeleting) {
+            charIndex--;
+        } else {
+            charIndex++;
+        }
+
+        el.textContent = phrase.slice(0, charIndex);
+
+        let delay = isDeleting ? 22 : 45;
+
+        if (!isDeleting && charIndex === phrase.length) {
+            delay = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            delay = 400;
+        }
+
+        setTimeout(tick, delay);
+    }
+
+    // Kick off after hero fade-in completes
+    setTimeout(tick, 1400);
+})();
+
