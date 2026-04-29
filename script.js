@@ -453,6 +453,28 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Hamburger nav toggle
+const hamburger = document.getElementById('navHamburger');
+const navLinks = document.getElementById('navLinks');
+
+if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    navLinks.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        });
+    });
+}
+
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
@@ -471,40 +493,66 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Intersection Observer for scroll animations
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
 
+// Active nav link sync (section-awareness for faster scanning)
+const navAnchors = Array.from(document.querySelectorAll('.nav-link[href^="#"]'));
+const trackedSections = navAnchors
+    .map((anchor) => document.querySelector(anchor.getAttribute('href')))
+    .filter(Boolean);
+
+if (navAnchors.length && trackedSections.length) {
+    const setActiveNav = (id) => {
+        navAnchors.forEach((anchor) => {
+            const isActive = anchor.getAttribute('href') === `#${id}`;
+            anchor.classList.toggle('active', isActive);
+            if (isActive) {
+                anchor.setAttribute('aria-current', 'page');
+            } else {
+                anchor.removeAttribute('aria-current');
+            }
+        });
+    };
+
+    const navObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target?.id) setActiveNav(visible[0].target.id);
+    }, {
+        root: null,
+        rootMargin: '-35% 0px -55% 0px',
+        threshold: [0.2, 0.4, 0.6]
+    });
+
+    trackedSections.forEach((section) => navObserver.observe(section));
+}
+
+// Intersection Observer for scroll animations
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animate-in');
+            observer.unobserve(entry.target);
         }
     });
-}, observerOptions);
-
-// Observe project cards for animations
-projectCards.forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(card);
+}, {
+    root: null,
+    rootMargin: '0px 0px -60px 0px',
+    threshold: 0.05
 });
 
-// Add animation class handler
-document.addEventListener('DOMContentLoaded', () => {
-    // Trigger animations when visible
-    const style = document.createElement('style');
-    style.textContent = `
-        .work-card.animate-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style);
+// Observe project cards for animations
+let groupIndex = 0;
+let lastGroup = null;
+projectCards.forEach((card) => {
+    const group = card.closest('.work-group, .latest-group');
+    if (group !== lastGroup) { groupIndex = 0; lastGroup = group; }
+    const delay = Math.min(groupIndex * 0.07, 0.3);
+    groupIndex++;
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(16px)';
+    card.style.transition = `opacity 0.45s ease ${delay}s, transform 0.45s ease ${delay}s`;
+    observer.observe(card);
 });
 
 // Parallax effect for hero glows
@@ -601,6 +649,43 @@ document.addEventListener('click', (e) => {
         openLightbox(e.target.src);
     }
 });
+
+// ====================================
+// LATEST CAROUSEL
+// ====================================
+(function () {
+    const track = document.getElementById('latestTrack');
+    if (!track) return;
+
+    const cards = Array.from(track.querySelectorAll('.latest-card'));
+    const dots = Array.from(document.querySelectorAll('.latest-dot'));
+    const prevBtn = document.getElementById('latestPrev');
+    const nextBtn = document.getElementById('latestNext');
+    const total = cards.length;
+    let current = 0;
+
+    function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        if (prevBtn) prevBtn.disabled = false;
+        if (nextBtn) nextBtn.disabled = false;
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+    // Touch swipe
+    let touchStartX = 0;
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    }, { passive: true });
+
+    goTo(0);
+})();
 
 // Initialize animations on load
 document.addEventListener('DOMContentLoaded', () => {
