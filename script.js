@@ -493,6 +493,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+
+// Active nav link sync (section-awareness for faster scanning)
+const navAnchors = Array.from(document.querySelectorAll('.nav-link[href^="#"]'));
+const trackedSections = navAnchors
+    .map((anchor) => document.querySelector(anchor.getAttribute('href')))
+    .filter(Boolean);
+
+if (navAnchors.length && trackedSections.length) {
+    const setActiveNav = (id) => {
+        navAnchors.forEach((anchor) => {
+            const isActive = anchor.getAttribute('href') === `#${id}`;
+            anchor.classList.toggle('active', isActive);
+            if (isActive) {
+                anchor.setAttribute('aria-current', 'page');
+            } else {
+                anchor.removeAttribute('aria-current');
+            }
+        });
+    };
+
+    const navObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target?.id) setActiveNav(visible[0].target.id);
+    }, {
+        root: null,
+        rootMargin: '-35% 0px -55% 0px',
+        threshold: [0.2, 0.4, 0.6]
+    });
+
+    trackedSections.forEach((section) => navObserver.observe(section));
+}
+
 // Intersection Observer for scroll animations
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
