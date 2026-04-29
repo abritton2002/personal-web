@@ -813,7 +813,7 @@ a {
 }
 
 .research-header {
-    max-width: 900px;
+    max-width: 1400px;
     margin: 0 auto 3rem;
 }
 
@@ -844,7 +844,7 @@ a {
 }
 
 .research-list {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -970,7 +970,7 @@ a {
 }
 
 .about-header {
-    max-width: 800px;
+    max-width: 1400px;
     margin: 0 auto 3rem;
 }
 
@@ -994,7 +994,7 @@ a {
 }
 
 .about-content {
-    max-width: 800px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -1035,7 +1035,7 @@ a {
 }
 
 .ventures-header {
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 0 auto 3rem;
 }
 
@@ -1062,7 +1062,7 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     background: var(--border);
     border: 1px solid var(--border);
