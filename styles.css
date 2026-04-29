@@ -856,11 +856,11 @@ a {
     border: 1px solid var(--border);
     border-left: 2px solid var(--border-strong);
     border-radius: var(--r-sm);
-    padding: 2rem;
+    padding: 1.1rem 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 1.25rem;
     transition: border-left-color 0.3s ease, background 0.3s ease;
 }
 
@@ -876,12 +876,12 @@ a {
 .research-journal {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #2dd4bf;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.4rem;
 }
 
 .research-journal.under-review {
@@ -890,19 +890,18 @@ a {
 
 .research-paper-title {
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: 0.82rem;
     font-weight: 400;
-
     color: var(--t0);
     line-height: 1.4;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
 }
 
 .research-authors {
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-size: 0.72rem;
     color: var(--t1);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .research-authors strong {
@@ -926,9 +925,9 @@ a {
 
 .research-abstract {
     font-family: var(--font-body);
-    font-size: 0.875rem;
+    font-size: 0.72rem;
     color: var(--t1);
-    line-height: 1.75;
+    line-height: 1.65;
     border-left: 2px solid var(--border-strong);
     padding-left: 1rem;
     margin-top: 1rem;
