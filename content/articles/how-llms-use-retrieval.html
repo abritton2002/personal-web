@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How LLMs Use Retrieval to Turn Prompts Into Grounded Answers | Alex Britton</title>
+    <meta name="description" content="A practical explanation of how tokenization, embeddings, vector search, retrieval, and context construction work together in RAG systems.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Mono:ital,wght@0,400;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        body {
+            background: var(--s0);
+        }
+
+        .article-shell {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 7rem 1.5rem 5rem;
+        }
+
+        .article-back {
+            display: inline-flex;
+            margin-bottom: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--t2);
+        }
+
+        .article-back:hover {
+            color: var(--accent);
+        }
+
+        .article-kicker {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.3rem, 6vw, 4.8rem);
+            font-weight: 400;
+            line-height: 0.98;
+            color: var(--t0);
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--t2);
+            margin-bottom: 3rem;
+        }
+
+        .article-body {
+            font-family: var(--font-body);
+            color: var(--t1);
+            font-size: 1.04rem;
+            line-height: 1.78;
+        }
+
+        .article-body h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.45rem, 3vw, 2rem);
+            font-weight: 400;
+            color: var(--t0);
+            margin: 3rem 0 1rem;
+        }
+
+        .article-body p {
+            margin-bottom: 1.2rem;
+        }
+
+        .article-body ul {
+            margin: 0 0 1.4rem 1.3rem;
+        }
+
+        .article-body li {
+            margin-bottom: 0.45rem;
+        }
+
+        .article-body blockquote {
+            border-left: 2px solid var(--accent);
+            margin: 2rem 0;
+            padding: 0.25rem 0 0.25rem 1.25rem;
+            color: var(--t0);
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            line-height: 1.35;
+        }
+
+        .article-body pre {
+            background: var(--s2);
+            border: 1px solid var(--border);
+            border-radius: var(--r-sm);
+            color: var(--t0);
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            line-height: 1.55;
+        }
+
+        .article-body code {
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 720px) {
+            .article-shell {
+                padding-top: 6rem;
+            }
+
+            .article-body {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="header-nav">
+            <a href="../../index.html" class="nav-logo">AB</a>
+            <div class="nav-links">
+                <a href="../../index.html#latest" class="nav-link">Latest</a>
+                <a href="../../index.html#work" class="nav-link">Work</a>
+                <a href="../../index.html#writing" class="nav-link">Writing</a>
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="mailto:abritton2002@gmail.com" class="nav-link">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-shell">
+        <a href="../../index.html#writing" class="article-back">Back to writing</a>
+        <p class="article-kicker">The Learning SpAIce</p>
+        <h1 class="article-title">How LLMs Use Retrieval to Turn Prompts Into Grounded Answers</h1>
+        <p class="article-meta">Alex Britton | May 2025</p>
+
+        <article class="article-body">
+            <p>Most people experience AI as a simple exchange. You type a question. The model gives you an answer.</p>
+
+            <p>That interface is useful, but it hides the more interesting part: what happens between the prompt and the response. Under the hood, language gets translated into math, compared against memory, rebuilt with context, and passed through a model that predicts the next token one step at a time.</p>
+
+            <p>That process matters if you want to build with AI instead of just use it. The quality of an AI system is not only determined by the model. It is determined by the full path around the model: the prompt, the context, the retrieval layer, the data structure, the ranking logic, and the final instruction stack.</p>
+
+            <p>This is especially true for retrieval-augmented generation, usually called RAG. RAG is one of the most important patterns in practical AI because it lets a model answer with context it was not trained on. Instead of asking the model to rely only on its internal weights, you give it a way to retrieve relevant information at runtime.</p>
+
+            <h2>Step 1: The Prompt Becomes Tokens</h2>
+
+            <p>Start with a basic question:</p>
+
+            <blockquote>How does gravity work on the Moon?</blockquote>
+
+            <p>To a person, that is a short sentence with obvious meaning. To a language model, it has to be converted into smaller units called tokens.</p>
+
+            <p>Tokens are the language pieces that the model actually processes. A token might be a full word, part of a word, punctuation, or even a space pattern. Common words often become single tokens. Less common words may be split into multiple pieces.</p>
+
+            <p>This is the first important shift: the model is not reading language in the same way we do. It is processing numerical representations of token sequences.</p>
+
+            <h2>Step 2: The Prompt Becomes Meaning In Vector Space</h2>
+
+            <p>For many AI systems, especially those using retrieval, the next step is embedding. An embedding model takes text and converts it into a vector. A vector is just a list of numbers, but those numbers represent semantic meaning.</p>
+
+            <p>Instead of storing only the exact words you typed, an embedding tries to capture the idea behind the words. That matters because two sentences can mean similar things even if they use different language.</p>
+
+            <p>For example, "How does gravity work on the Moon?" and "Why do astronauts weigh less on the lunar surface?" do not use the same wording, but they are closely related in meaning. A good embedding model should place them near each other in vector space.</p>
+
+            <p>That is the core idea: meaning becomes location. Texts with similar meanings land close together. Texts with unrelated meanings land farther apart.</p>
+
+            <h2>Step 3: The System Searches For Relevant Context</h2>
+
+            <p>Once the prompt has been embedded, the system can compare it against a database of other embeddings. This database might contain chunks of documentation, blog posts, internal memos, code files, support tickets, research papers, transcripts, product specs, or customer notes.</p>
+
+            <p>Each chunk has already been embedded and stored. When the user asks a question, the system embeds the question and searches for the stored vectors that are closest to it.</p>
+
+            <p>This is where vector databases come in. A vector database is designed to search through high-dimensional vectors quickly. In many cases, systems use approximate nearest neighbor search, or ANN, to find the closest matches without comparing every possible item one by one.</p>
+
+            <p>The goal is not to retrieve everything. The goal is to retrieve the most useful context.</p>
+
+            <h2>Step 4: The Prompt Gets Rebuilt With Context</h2>
+
+            <p>After retrieval, the system usually rebuilds the prompt. The user only typed a short question, but the model may receive something closer to this:</p>
+
+            <pre><code>System:
+You are a helpful assistant. Answer using the provided context.
+
+Context:
+1. The Moon's gravity is about one-sixth of Earth's gravity.
+2. The Moon has less mass than Earth, which creates a weaker gravitational pull.
+3. Astronauts on the Moon weigh less than they do on Earth, though their mass stays the same.
+4. Lower gravity allows astronauts to jump higher and move differently.
+
+User:
+How does gravity work on the Moon?</code></pre>
+
+            <p>This reconstructed prompt is what gives the model a better chance of answering accurately. The model is no longer answering only from its general training. It is answering with retrieved evidence placed directly in its context window.</p>
+
+            <p>RAG does not magically update the model's weights. The model itself is not permanently learning the retrieved information. The system is temporarily placing the right information in front of the model at the moment it needs to answer.</p>
+
+            <h2>Step 5: The Model Generates The Response Token By Token</h2>
+
+            <p>Once the rebuilt prompt reaches the language model, generation begins. The model does not write the whole answer at once. It predicts the next token, then the next token, then the next token, using the prompt and all previous generated tokens as context.</p>
+
+            <p>That means every part of the input can influence the output: the system message, the developer instructions, the user question, the retrieved documents, the order of the context, the formatting of examples, and the previous tokens in the answer.</p>
+
+            <p>This is why small changes in context can produce large changes in output quality. If the retrieved context is accurate, relevant, and well-structured, the model has a better foundation. If the retrieved context is noisy, outdated, or too long, the model may produce an answer that sounds confident but misses the point.</p>
+
+            <h2>Why RAG Matters</h2>
+
+            <p>RAG matters because most real-world AI systems need access to information that is specific, current, private, or too large to fit inside the model itself.</p>
+
+            <p>A base model might know general information about programming, physics, or writing. But it will not automatically know your company's internal API design, your team's current roadmap, your customer's latest support issue, or the contents of a private database.</p>
+
+            <p>RAG gives the model working memory. Not memory in the human sense. Not permanent understanding. But a practical way to bring the right information into the context window at the right time.</p>
+
+            <p>A well-built RAG system can help with searching internal documentation, answering customer support questions, generating technical content from source material, summarizing research, querying product knowledge, assisting engineers inside large codebases, and helping non-technical users interact with complex systems.</p>
+
+            <h2>The Hard Part Is Not The Model</h2>
+
+            <p>It is tempting to think the model is the whole system. It is not.</p>
+
+            <p>The hard part is often everything around the model. You have to decide how documents should be chunked. Chunks that are too small may lose meaning. Chunks that are too large may dilute relevance. You have to choose an embedding model, evaluate retrieval quality, handle conflicting sources, and decide when the model should answer or admit that it does not have enough information.</p>
+
+            <p>You also have to make the system useful for the person using it. That means the answer cannot just be technically correct. It has to be clear. It has to match the user's intent. It has to expose uncertainty when needed. It has to cite or reference the right source when trust matters.</p>
+
+            <h2>A Useful Mental Model</h2>
+
+            <blockquote>The model generates. The retrieval system remembers. The prompt decides how they work together.</blockquote>
+
+            <p>If the model generates without retrieval, it may be fluent but ungrounded. If retrieval returns poor context, the model may be anchored to the wrong information. If the prompt is unclear, even good context may be used poorly.</p>
+
+            <p>The strongest systems make all three parts work together. They retrieve the right information, present it clearly, and ask the model to perform a specific job with that context.</p>
+
+            <h2>How This Changed The Way I Build</h2>
+
+            <p>The more I have worked with AI systems, the more I have stopped thinking about prompts as isolated text boxes. A prompt is part of a pipeline. It is connected to memory, retrieval, tools, data, user intent, and output constraints.</p>
+
+            <p>When something goes wrong, the answer is not always "write a better prompt." Sometimes the answer is to improve the source data, change the chunking strategy, add metadata, rerank retrieved results, reduce irrelevant context, create a better system instruction, add examples, or evaluate the output against a clearer standard.</p>
+
+            <p>That mindset has influenced how I build tools. In sports science and biomechanics, I often work with messy systems where the goal is not to find a perfect answer. The goal is to find signal. You look for the information that helps someone make a better decision. You filter noise. You build interfaces that make complex data usable.</p>
+
+            <p>AI systems are similar. A useful AI tool does not need to pretend it knows everything. It needs to retrieve the right context, reason over it clearly, and communicate the answer in a way that helps the user move forward.</p>
+
+            <h2>Final Thoughts</h2>
+
+            <p>If you are building with AI, understanding this pipeline is essential. The best AI products will not come from prompts alone. They will come from people who understand the whole stack: tokenization, embeddings, retrieval, context construction, generation, evaluation, and user experience.</p>
+
+            <p>RAG is not just a technical pattern. It is a way of designing memory around a model. Done well, it lets AI systems answer with context instead of guesswork. It lets teams turn scattered knowledge into usable interfaces. It lets builders create tools that do more than produce text. They help people think, search, decide, and act.</p>
+
+            <p>The model matters. But the system around the model is where the real leverage is.</p>
+        </article>
+    </main>
+</body>
+</html>

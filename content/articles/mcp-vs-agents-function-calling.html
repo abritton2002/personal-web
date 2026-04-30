@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP vs AI Agents and Function Calling | Alex Britton</title>
+    <meta name="description" content="A practical explanation of how function calling, AI agents, and MCP fit together in modern AI systems.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Mono:ital,wght@0,400;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        body { background: var(--s0); }
+        .article-shell { max-width: 820px; margin: 0 auto; padding: 7rem 1.5rem 5rem; }
+        .article-back { display: inline-flex; margin-bottom: 2rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t2); }
+        .article-back:hover { color: var(--accent); }
+        .article-kicker { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+        .article-title { font-family: var(--font-display); font-size: clamp(2.3rem, 6vw, 4.8rem); font-weight: 400; line-height: 0.98; color: var(--t0); margin-bottom: 1rem; }
+        .article-dek { font-family: var(--font-display); color: var(--t1); font-size: 1.35rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--t2); margin-bottom: 3rem; }
+        .article-body { font-family: var(--font-body); color: var(--t1); font-size: 1.04rem; line-height: 1.78; }
+        .article-body h2 { font-family: var(--font-display); font-size: clamp(1.45rem, 3vw, 2rem); font-weight: 400; color: var(--t0); margin: 3rem 0 1rem; }
+        .article-body p { margin-bottom: 1.2rem; }
+        .article-body ul { margin: 0 0 1.4rem 1.3rem; }
+        .article-body li { margin-bottom: 0.45rem; }
+        .article-body blockquote { border-left: 2px solid var(--accent); margin: 2rem 0; padding: 0.25rem 0 0.25rem 1.25rem; color: var(--t0); font-family: var(--font-display); font-size: 1.35rem; line-height: 1.35; }
+        @media (max-width: 720px) { .article-shell { padding-top: 6rem; } .article-body { font-size: 1rem; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="header-nav">
+            <a href="../../index.html" class="nav-logo">AB</a>
+            <div class="nav-links">
+                <a href="../../index.html#latest" class="nav-link">Latest</a>
+                <a href="../../index.html#work" class="nav-link">Work</a>
+                <a href="../../index.html#writing" class="nav-link">Writing</a>
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="mailto:abritton2002@gmail.com" class="nav-link">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-shell">
+        <a href="../../index.html#writing" class="article-back">Back to writing</a>
+        <p class="article-kicker">The Learning SpAIce</p>
+        <h1 class="article-title">MCP vs AI Agents and Function Calling</h1>
+        <p class="article-dek">The difference, from someone still wrapping his head around it.</p>
+        <p class="article-meta">Alex Britton | April 2025</p>
+
+        <article class="article-body">
+            <p>Lately I have been diving deeper into how AI systems actually get things done. Not just generating text, but completing tasks across tools, coordinating workflows, and scaling beyond one-off prompts.</p>
+
+            <p>At first, I leaned heavily into agents. A single LLM calling functions made sense. Multiple agents working in parallel also made sense. You define a tool, hook it up to the model, and let the system reason about when to use it.</p>
+
+            <p>Then I came across the Model Context Protocol, or MCP, and it forced me to think about the problem from a different level of abstraction.</p>
+
+            <p>I will not pretend to have MCP fully mapped out. I am still figuring out where it fits in the broader AI stack. But the more I use it, the more I think the conversation is less about MCP versus agents and more about where access, control, and tool interfaces should live.</p>
+
+            <h2>What Is Function Calling?</h2>
+
+            <p>Function calling is the most direct pattern. You give a model a set of functions it is allowed to call. The model decides when a function is needed, fills out the arguments, and the application executes the call.</p>
+
+            <p>A simple example is a weather assistant. The user asks for the forecast, the model recognizes that it needs live weather data, calls a weather API, and then turns the result into a readable answer.</p>
+
+            <p>This is tight, fast, and useful for contained tasks. It works well when the tool surface is small and the application knows exactly which tools should be exposed to the model.</p>
+
+            <h2>What Are Agents?</h2>
+
+            <p>Agents add another layer. Instead of a single model response, an agent can plan, call tools, inspect results, update its plan, and continue working toward a goal.</p>
+
+            <p>In a multi-agent setup, different agents might be scoped to different jobs. One handles code search. One writes a patch. One reviews the diff. One summarizes the work. That kind of structure can be useful when a workflow benefits from separation of concerns.</p>
+
+            <p>The challenge is coordination. As soon as multiple agents need access to many tools, the question becomes less about whether the model can reason and more about how the system controls what each agent can see, call, and modify.</p>
+
+            <h2>What Is MCP?</h2>
+
+            <p>MCP is different. It is not an agent framework. It is a protocol for exposing tools, resources, and services to AI clients in a standard way.</p>
+
+            <p>Instead of wiring a custom integration directly into every AI application, an MCP server can expose a capability once. Then MCP-compatible clients can discover and use that capability through a shared interface.</p>
+
+            <p>That shift matters. MCP is less about making the model smarter and more about making the tool layer more structured. It gives the model a curated interface into systems that already exist.</p>
+
+            <blockquote>Function calling is how a tool gets called. MCP is one way to standardize how tools are exposed.</blockquote>
+
+            <h2>Where The Intelligence Lives</h2>
+
+            <p>One of the biggest distinctions is where the intelligence and control live.</p>
+
+            <p>With basic function calling, the application defines tools and the model decides when to use them. The reasoning loop is usually close to the model.</p>
+
+            <p>With agents, the reasoning loop expands. The system may plan, execute, observe, and repeat. The model may still be deciding what to do next, but there is more state and more workflow around it.</p>
+
+            <p>With MCP, the focus is not the reasoning loop itself. The focus is the access layer. MCP gives a client a standard way to discover available tools and interact with them. The client or agent can still reason, but the tool interface is separated from the specific model or app.</p>
+
+            <h2>Why MCP Can Look Like Overkill</h2>
+
+            <p>If the example is simple enough, MCP can look bloated. A weather query is a good example. If all you need is one weather API call, basic function calling is probably enough.</p>
+
+            <p>But that is not the problem MCP is trying to solve. MCP becomes more interesting when the system has many tools, many clients, many models, or tools that need to be reused across workflows.</p>
+
+            <p>The point is not to simplify the easiest task. The point is to standardize access across harder ones.</p>
+
+            <h2>When I Would Use Function Calling</h2>
+
+            <p>I would reach for function calling when the task is narrow, the tool set is small, and the integration belongs directly inside the application.</p>
+
+            <ul>
+                <li>One model needs one or two tools.</li>
+                <li>The tool schema is stable.</li>
+                <li>Latency matters.</li>
+                <li>The app owns the full user experience.</li>
+                <li>The integration does not need to be reused elsewhere.</li>
+            </ul>
+
+            <p>In that case, function calling is clean and direct.</p>
+
+            <h2>When I Would Use Agents</h2>
+
+            <p>I would reach for agents when the task needs a loop. The model needs to inspect something, make a decision, take an action, observe the result, and continue.</p>
+
+            <ul>
+                <li>Code editing and review workflows.</li>
+                <li>Research tasks that need multiple passes.</li>
+                <li>Debugging workflows where the next step depends on output.</li>
+                <li>Planning tasks where the system needs to break work into steps.</li>
+            </ul>
+
+            <p>Agents are useful when the workflow itself has uncertainty. They help when the system needs to adapt while it works.</p>
+
+            <h2>When I Would Use MCP</h2>
+
+            <p>MCP starts to make sense when tool access needs to be reusable, composable, and controlled.</p>
+
+            <ul>
+                <li>Multiple agents or clients need access to the same tools.</li>
+                <li>You are adding or updating tools often.</li>
+                <li>You want to swap models without rebuilding every integration.</li>
+                <li>You care about tool standardization and permission boundaries.</li>
+                <li>You want one server to expose a capability to several AI workflows.</li>
+            </ul>
+
+            <p>This is the part that has been most useful for me. I like being able to expose tools through MCP servers and connect them to the environments where I already work, especially for rapid prototyping, database access, and coding workflows.</p>
+
+            <h2>Why This Resonates With Me</h2>
+
+            <p>The more I work with LLMs, the more I realize that reasoning is only one part of the problem. Access is often the part that breaks.</p>
+
+            <p>The model needs to know what it is allowed to do. It needs a clear description of the available tools. It needs schemas that are specific enough to use correctly. It needs guardrails around what data it can touch and what actions it can take.</p>
+
+            <p>Without that structure, the system becomes brittle. The model may reason well but call the wrong thing, pass the wrong argument, or operate with incomplete context.</p>
+
+            <p>That is why MCP feels important. It creates a cleaner boundary between the AI client and the systems it needs to use.</p>
+
+            <h2>Final Thoughts</h2>
+
+            <p>I do not think there is a winner between function calling, agents, and MCP. They solve different parts of the stack.</p>
+
+            <p>Function calling is useful for direct tool use. Agents are useful for adaptive workflows. MCP is useful for standardizing access to tools and context across clients and models.</p>
+
+            <p>The lines are still blurry, and I am still learning. But that is also what makes this moment interesting. We are not just learning how to prompt models. We are learning how to design the systems around them.</p>
+        </article>
+    </main>
+</body>
+</html>

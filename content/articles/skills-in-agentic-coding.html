@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Are Skills in Agentic Coding? | Alex Britton</title>
+    <meta name="description" content="A practical explanation of skills as reusable instruction packages for coding agents like OpenAI Codex and Claude Code.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Mono:ital,wght@0,400;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        body { background: var(--s0); }
+        .article-shell { max-width: 820px; margin: 0 auto; padding: 7rem 1.5rem 5rem; }
+        .article-back { display: inline-flex; margin-bottom: 2rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t2); }
+        .article-back:hover { color: var(--accent); }
+        .article-kicker { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+        .article-title { font-family: var(--font-display); font-size: clamp(2.3rem, 6vw, 4.8rem); font-weight: 400; line-height: 0.98; color: var(--t0); margin-bottom: 1rem; }
+        .article-dek { font-family: var(--font-display); color: var(--t1); font-size: 1.35rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--t2); margin-bottom: 3rem; }
+        .article-body { font-family: var(--font-body); color: var(--t1); font-size: 1.04rem; line-height: 1.78; }
+        .article-body h2 { font-family: var(--font-display); font-size: clamp(1.45rem, 3vw, 2rem); font-weight: 400; color: var(--t0); margin: 3rem 0 1rem; }
+        .article-body p { margin-bottom: 1.2rem; }
+        .article-body ul { margin: 0 0 1.4rem 1.3rem; }
+        .article-body li { margin-bottom: 0.45rem; }
+        .article-body blockquote { border-left: 2px solid var(--accent); margin: 2rem 0; padding: 0.25rem 0 0.25rem 1.25rem; color: var(--t0); font-family: var(--font-display); font-size: 1.35rem; line-height: 1.35; }
+        @media (max-width: 720px) { .article-shell { padding-top: 6rem; } .article-body { font-size: 1rem; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="header-nav">
+            <a href="../../index.html" class="nav-logo">AB</a>
+            <div class="nav-links">
+                <a href="../../index.html#latest" class="nav-link">Latest</a>
+                <a href="../../index.html#work" class="nav-link">Work</a>
+                <a href="../../index.html#writing" class="nav-link">Writing</a>
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="mailto:abritton2002@gmail.com" class="nav-link">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-shell">
+        <a href="../../index.html#writing" class="article-back">Back to writing</a>
+        <p class="article-kicker">The Learning SpAIce</p>
+        <h1 class="article-title">What Are Skills in Agentic Coding?</h1>
+        <p class="article-dek">Reusable instruction packages for coding agents, and why they matter once AI workflows become part of real work.</p>
+        <p class="article-meta">Alex Britton | 2026</p>
+
+        <article class="article-body">
+            <p>Agentic coding gets a lot more useful when the agent does not have to relearn the same workflow every time.</p>
+
+            <p>That is the basic idea behind skills. A skill is a reusable instruction package that gives a coding agent task-specific knowledge, context, and process. Instead of writing the same setup instructions over and over, you package the workflow once and let the agent load it when the task calls for it.</p>
+
+            <p>For tools like OpenAI Codex and Anthropic Claude Code, this can change the way you work. A good skill turns an agent from a general assistant into something closer to a teammate that understands a specific recurring job.</p>
+
+            <h2>The Problem Skills Solve</h2>
+
+            <p>Most repeated work has hidden context. You know where the files live. You know which API is annoying. You know what edge cases have burned you before. You know the review checklist. You know the database table that always needs to be joined. You know the naming convention that matters but is not obvious from the code.</p>
+
+            <p>A general coding agent does not know any of that unless you tell it. The usual solution is to stuff more instructions into the prompt. That works for a while, but it does not scale.</p>
+
+            <p>Eventually the prompt becomes a pile of repeated context. It gets long, noisy, and hard to maintain. Worse, it competes with the actual task for context window space.</p>
+
+            <blockquote>Skills let you move recurring task knowledge out of the prompt and into a reusable package.</blockquote>
+
+            <h2>What A Skill Contains</h2>
+
+            <p>A skill is not magic. It is usually a folder of instructions and supporting files. The important part is that it tells the agent how to handle a specific class of work.</p>
+
+            <p>A practical skill might include:</p>
+
+            <ul>
+                <li>When the skill should be used.</li>
+                <li>The workflow the agent should follow.</li>
+                <li>Important project-specific context.</li>
+                <li>Commands or scripts that are safe to run.</li>
+                <li>Known failure modes.</li>
+                <li>Review checklists.</li>
+                <li>Examples of good outputs.</li>
+            </ul>
+
+            <p>The best skills are not giant instruction dumps. They are focused. They give the agent enough context to do the job correctly without turning every task into a bloated prompt.</p>
+
+            <h2>Why This Matters For Agentic Coding</h2>
+
+            <p>Agentic coding is not just asking a model to write code. The useful version is a loop: gather context, plan the change, implement, test, review, and iterate.</p>
+
+            <p>Skills help standardize that loop. They make it easier for the agent to know what good looks like for a specific type of task.</p>
+
+            <p>If I am working on a frontend change, I want the agent to understand the design rules, verification steps, and interaction patterns I care about. If I am working on a database migration, I want a different workflow. If I am writing a task board update, I want the agent to know the exact destination, format, and API behavior.</p>
+
+            <p>Without skills, I either have to remember all of that and type it every time, or accept that the agent will make generic choices. With skills, the workflow becomes repeatable.</p>
+
+            <h2>A Real Example: Task Board Updates</h2>
+
+            <p>One skill I have used a lot is for updating our R&amp;D task board through the Notion API.</p>
+
+            <p>The job sounds simple: keep worklogs, documentation, and project updates current for the team. In practice, it is easy to let that work slip because it lives outside the actual engineering flow. You finish the code, then you have to open Notion, find the right task, remember the right structure, and write the update manually.</p>
+
+            <p>A skill changes that. The agent can follow a known workflow: find the right task, use the correct Notion structure, write a concise worklog, preserve the team's format, and update the board without me breaking focus.</p>
+
+            <p>That is the part I care about. It keeps the team informed without making documentation feel like a separate ritual.</p>
+
+            <h2>Skills Keep Context Windows Cleaner</h2>
+
+            <p>One underrated benefit is context management.</p>
+
+            <p>AI systems are constrained by what is in the active context window. If you paste every rule, workflow, and project note into every session, you burn context on instructions that may not matter for the current task.</p>
+
+            <p>Skills let the agent load the relevant package only when needed. That makes the active working set cleaner. The agent can focus on the current code, current files, current error, or current output instead of carrying every possible instruction at once.</p>
+
+            <p>This is similar to how good engineers work. You do not keep every procedure in your head at all times. You know where the playbook lives, and you pull it in when the situation calls for it.</p>
+
+            <h2>Good Skills Are Opinionated</h2>
+
+            <p>A weak skill says, "help with this task."</p>
+
+            <p>A strong skill says, "when this task appears, follow this workflow, use these tools, avoid these mistakes, and verify the result this way."</p>
+
+            <p>That level of opinion matters because agents are often too willing to invent a plausible process. Skills reduce that by giving the model a real local standard.</p>
+
+            <p>For example, a useful code review skill should not just say "review the code." It should say what kinds of issues matter, how findings should be ordered, how to reference files and lines, what not to waste time on, and what residual risk should be reported if the review is clean.</p>
+
+            <h2>The Line Between Skill And Automation</h2>
+
+            <p>A skill is not the same thing as full automation. Automation runs a fixed process. A skill guides an agent through a process that may still require judgment.</p>
+
+            <p>That distinction is important. Some tasks should be automated completely. Others need judgment but still benefit from a repeatable workflow.</p>
+
+            <p>Skills are useful in that middle ground. They let the agent adapt to the situation while staying inside a known operating pattern.</p>
+
+            <h2>Where I Think This Goes</h2>
+
+            <p>I think skills become more important as coding agents move from demos into daily work.</p>
+
+            <p>At first, the exciting part of AI coding is that the model can write code. After a while, the more important question is whether the system can work consistently. Can it follow your team's standards? Can it remember the right workflow? Can it avoid the mistakes you have already seen? Can it produce updates, tests, documentation, and reviews in a shape that actually fits the way your team works?</p>
+
+            <p>Skills are one answer to that problem. They are a way to package local knowledge and make it available at the right time.</p>
+
+            <h2>Final Thoughts</h2>
+
+            <p>The more I use agentic coding tools, the more I think the leverage is not only in the model. It is in the operating system around the model.</p>
+
+            <p>Skills are part of that operating system. They make repeated work easier to execute, easier to verify, and easier to hand off. They keep prompts cleaner. They make agents more consistent. They let you turn lessons learned into reusable workflows.</p>
+
+            <p>For me, that is the point. I do not want an agent that only responds to isolated prompts. I want a system that gets better as I turn repeated work into reusable process.</p>
+        </article>
+    </main>
+</body>
+</html>
