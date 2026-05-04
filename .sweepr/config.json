@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "package": "sweepr-code",
+  "command": "sweepr-code",
+  "purpose": "documentation-alignment",
+  "dashboardRole": "link-registry",
+  "localOnly": true,
+  "writesGitHooks": false,
+  "managedDashboard": "stores connected repositories, repo-doc links, and Notion-doc links",
+  "registryAuth": "sweepr-code login",
+  "managedMarker": "<!-- Installed by Sweepr. Safe for the Sweepr package to replace. -->"
+}
