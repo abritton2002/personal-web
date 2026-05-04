@@ -53,9 +53,9 @@ body {
    3. PAGE WRAPPER
    ==================================== */
 .page {
-    max-width: 720px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 2.5rem 1.25rem 3rem;
+    padding: 2.5rem 2rem 3rem;
 }
 
 /* ====================================
@@ -132,10 +132,6 @@ hr {
 /* ====================================
    7. HEADER
    ==================================== */
-.site-header {
-    margin-bottom: 0;
-}
-
 .site-name {
     font-size: 1.5rem;
     font-weight: bold;
@@ -288,8 +284,62 @@ section {
 }
 
 /* ====================================
+   10b. HEADER LAYOUT (name+links left, photo right)
+   ==================================== */
+.site-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.header-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.header-photo {
+    width: 120px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.header-links {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    margin-bottom: 0.5rem;
+}
+
+.header-links a {
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.header-links a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+@media (max-width: 560px) {
+    .site-header {
+        flex-direction: column-reverse;
+    }
+    .header-photo {
+        width: 90px;
+    }
+}
+
+/* ====================================
    11. VENTURES LIST
    ==================================== */
+.ventures-sub {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: var(--muted);
+    letter-spacing: 0;
+}
+
 .ventures-list {
     list-style: none;
     padding: 0;
