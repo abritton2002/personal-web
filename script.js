@@ -252,6 +252,19 @@ const projectsData = {
         video: "content/demo-pr-iphone.mp4",
         socialLinks: null,
         additionalImages: null
+    },
+    19: {
+        title: "Sweepr",
+        tag: "Walkthrough",
+        description: "Built an open-source documentation control plane for repos called Sweepr.\n\nThe core problem: documentation drifts from the actual codebase and nobody catches it until it causes friction. Sweepr gives coding agents — Claude Code and Codex — a lightweight way to run a full documentation alignment loop without needing to understand the entire repo.\n\nConnect your GitHub repos and Notion pages through the hosted app, then run `$sweepr` in Codex or `/sweepr` in Claude Code to triage and update docs against the live codebase. The agent does fast triage first, only reaching for deeper source verification when there's a concrete stale claim to check.\n\nThe CLI (`sweepr-code`) handles auth, Notion OAuth, the link registry, and local config. The hosted app is scoped tightly: link registry, drift reports, and update run history. Nothing autonomous, no PR queue, no approval inbox — just documentation kept honest.",
+        image: "content/demo-sweepr.jpg",
+        tech: ["Next.js", "Supabase", "GitHub App", "Notion API", "Claude Code", "OpenAI Codex", "TypeScript"],
+        liveLink: "https://www.linkedin.com/posts/alexander-britton-0bb687205_opensource-developertools-documentation-ugcPost-7457085207331020800-3mVl",
+        liveLinkLabel: "Watch Demo",
+        codeLink: "https://github.com/abritton2002/sweepr",
+        video: null,
+        socialLinks: null,
+        additionalImages: null
     }
 };
 
@@ -363,6 +376,8 @@ function openModal(projectId) {
     const hasLive = project.liveLink && project.liveLink !== '#';
     modalLiveLink.href = hasLive ? project.liveLink : '#';
     modalLiveLink.style.display = hasLive ? 'inline-flex' : 'none';
+    const liveLabelEl = document.getElementById('modalLiveLinkLabel');
+    if (liveLabelEl) liveLabelEl.textContent = project.liveLinkLabel || 'Check Out Full Design';
 
     // Code link
     const hasCode = project.codeLink && project.codeLink !== '#';
