@@ -3,40 +3,6 @@
 // Interactive Features
 // ====================================
 
-// Header scroll behavior
-const siteHeader = document.querySelector('.site-header');
-
-const heroSection = document.querySelector('.hero');
-const heroContent = document.querySelector('.hero-content');
-const scrollIndicator = document.querySelector('.scroll-indicator');
-
-function handleScroll() {
-    if (window.scrollY > 100) {
-        siteHeader.classList.add('scrolled');
-    } else {
-        siteHeader.classList.remove('scrolled');
-    }
-
-    // Hero fade-out on scroll
-    if (heroSection && heroContent) {
-        const heroHeight = heroSection.offsetHeight;
-        const scrollProgress = Math.min(window.scrollY / (heroHeight * 0.6), 1);
-        const opacity = 1 - scrollProgress;
-        const scale = 1 - scrollProgress * 0.08;
-        const translateY = window.scrollY * 0.3;
-
-        heroContent.style.opacity = opacity;
-        heroContent.style.transform = `translateY(${translateY}px) scale(${scale})`;
-
-        if (scrollIndicator) {
-            scrollIndicator.style.opacity = Math.max(1 - scrollProgress * 3, 0);
-        }
-    }
-}
-
-window.addEventListener('scroll', handleScroll);
-handleScroll(); // Initial check
-
 // Project Data
 const projectsData = {
     1: {
@@ -282,9 +248,7 @@ const modalTweetSection = document.getElementById('modalTweetSection');
 const modalTweetEmbeds = document.getElementById('modalTweetEmbeds');
 const carouselTrack = document.getElementById('carouselTrack');
 const carouselDots = document.getElementById('carouselDots');
-const modalClose = document.querySelector('.modal-close');
-const modalBackdrop = document.querySelector('.modal-backdrop');
-const projectCards = document.querySelectorAll('.work-card');
+const modalClose = document.querySelector('.modal-close-btn');
 
 // Carousel state
 let currentSlide = 0;
@@ -295,7 +259,6 @@ let touchEndX = 0;
 function goToSlide(index) {
     currentSlide = Math.max(0, Math.min(index, totalSlides - 1));
     carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-    // Update dots
     carouselDots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === currentSlide);
     });
@@ -310,7 +273,6 @@ function buildCarousel(images) {
     ).join('');
     carouselTrack.style.transform = 'translateX(0)';
 
-    // Dots
     if (totalSlides > 1) {
         carouselDots.innerHTML = images.map((_, i) =>
             `<button class="carousel-dot${i === 0 ? ' active' : ''}" data-index="${i}"></button>`
@@ -349,7 +311,6 @@ function openModal(projectId) {
     if (!project) return;
 
     // Build carousel — hide it entirely when this is a video-first project
-    // (video is shown at the top instead of the static poster)
     const carousel = document.getElementById('modalCarousel');
     const hasExtraImages = Array.isArray(project.additionalImages) && project.additionalImages.length > 0;
     if (project.video && !hasExtraImages) {
@@ -375,14 +336,14 @@ function openModal(projectId) {
     // Live link
     const hasLive = project.liveLink && project.liveLink !== '#';
     modalLiveLink.href = hasLive ? project.liveLink : '#';
-    modalLiveLink.style.display = hasLive ? 'inline-flex' : 'none';
+    modalLiveLink.style.display = hasLive ? 'inline' : 'none';
     const liveLabelEl = document.getElementById('modalLiveLinkLabel');
-    if (liveLabelEl) liveLabelEl.textContent = project.liveLinkLabel || 'Check Out Full Design';
+    if (liveLabelEl) liveLabelEl.textContent = project.liveLinkLabel || 'View Project';
 
     // Code link
     const hasCode = project.codeLink && project.codeLink !== '#';
     modalCodeLink.href = hasCode ? project.codeLink : '#';
-    modalCodeLink.style.display = hasCode ? 'inline-flex' : 'none';
+    modalCodeLink.style.display = hasCode ? 'inline' : 'none';
 
     // Tech tags
     modalTech.innerHTML = project.tech
@@ -397,7 +358,7 @@ function openModal(projectId) {
             window.twttr.widgets.createTweet(
                 project.tweetId,
                 document.getElementById(`tweet-container-${project.tweetId}`),
-                { theme: 'dark', dnt: true }
+                { theme: 'light', dnt: true }
             );
         }
     } else {
@@ -421,24 +382,23 @@ function openModal(projectId) {
     // Show modal and scroll to top
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    document.querySelector('.modal-content').scrollTop = 0;
+    modal.scrollTop = 0;
 }
 
 // Close Modal
 function closeModal() {
     modal.classList.remove('active');
     document.body.style.overflow = '';
-    
-    // Pause any playing videos
-    if (modalDemoVideo) {
-        modalDemoVideo.pause();
-        modalDemoVideo.currentTime = 0;
-    }
+    modalDemoVideo.pause();
+    modalDemoVideo.currentTime = 0;
 }
 
-// Event Listeners for Project Cards
+// Project link listeners — select all [data-project] elements
+const projectCards = document.querySelectorAll('[data-project]');
+
 projectCards.forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+        e.preventDefault();
         const projectId = card.dataset.project;
         openModal(projectId);
     });
@@ -451,15 +411,15 @@ projectCards.forEach(card => {
             openModal(projectId);
         }
     });
-
-    // Make cards focusable
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('role', 'button');
 });
 
 // Close modal events
 modalClose.addEventListener('click', closeModal);
-modalBackdrop.addEventListener('click', closeModal);
+
+// Close when clicking outside the modal-box
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+});
 
 // Close on Escape key
 document.addEventListener('keydown', (e) => {
@@ -467,28 +427,6 @@ document.addEventListener('keydown', (e) => {
         closeModal();
     }
 });
-
-// Hamburger nav toggle
-const hamburger = document.getElementById('navHamburger');
-const navLinks = document.getElementById('navLinks');
-
-if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('open');
-        hamburger.classList.toggle('open', isOpen);
-        hamburger.setAttribute('aria-expanded', String(isOpen));
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-
-    navLinks.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('open');
-            hamburger.classList.remove('open');
-            hamburger.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        });
-    });
-}
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -498,89 +436,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const targetSection = document.querySelector(targetId);
         if (targetSection) {
             e.preventDefault();
-            const headerHeight = document.querySelector('.site-header').offsetHeight;
-            const targetPosition = targetSection.offsetTop - headerHeight;
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
+            targetSection.scrollIntoView({ behavior: 'smooth' });
         }
-    });
-});
-
-
-// Active nav link sync (section-awareness for faster scanning)
-const navAnchors = Array.from(document.querySelectorAll('.nav-link[href^="#"]'));
-const trackedSections = navAnchors
-    .map((anchor) => document.querySelector(anchor.getAttribute('href')))
-    .filter(Boolean);
-
-if (navAnchors.length && trackedSections.length) {
-    const setActiveNav = (id) => {
-        navAnchors.forEach((anchor) => {
-            const isActive = anchor.getAttribute('href') === `#${id}`;
-            anchor.classList.toggle('active', isActive);
-            if (isActive) {
-                anchor.setAttribute('aria-current', 'page');
-            } else {
-                anchor.removeAttribute('aria-current');
-            }
-        });
-    };
-
-    const navObserver = new IntersectionObserver((entries) => {
-        const visible = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target?.id) setActiveNav(visible[0].target.id);
-    }, {
-        root: null,
-        rootMargin: '-35% 0px -55% 0px',
-        threshold: [0.2, 0.4, 0.6]
-    });
-
-    trackedSections.forEach((section) => navObserver.observe(section));
-}
-
-// Intersection Observer for scroll animations
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-            observer.unobserve(entry.target);
-        }
-    });
-}, {
-    root: null,
-    rootMargin: '0px 0px -60px 0px',
-    threshold: 0.05
-});
-
-// Observe project cards for animations
-let groupIndex = 0;
-let lastGroup = null;
-projectCards.forEach((card) => {
-    const group = card.closest('.work-group, .latest-group');
-    if (group !== lastGroup) { groupIndex = 0; lastGroup = group; }
-    const delay = Math.min(groupIndex * 0.07, 0.3);
-    groupIndex++;
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(16px)';
-    card.style.transition = `opacity 0.45s ease ${delay}s, transform 0.45s ease ${delay}s`;
-    observer.observe(card);
-});
-
-// Parallax effect for hero glows
-document.addEventListener('mousemove', (e) => {
-    const glows = document.querySelectorAll('.glow');
-    const mouseX = e.clientX / window.innerWidth;
-    const mouseY = e.clientY / window.innerHeight;
-
-    glows.forEach((glow, index) => {
-        const speed = (index + 1) * 20;
-        const x = (mouseX - 0.5) * speed;
-        const y = (mouseY - 0.5) * speed;
-        glow.style.transform = `translate(${x}px, ${y}px)`;
     });
 });
 
@@ -590,7 +447,6 @@ document.addEventListener('mousemove', (e) => {
 const lightbox = document.getElementById('imageLightbox');
 const lightboxImage = document.getElementById('lightboxImage');
 const lightboxClose = document.querySelector('.lightbox-close');
-const lightboxBackdrop = document.querySelector('.lightbox-backdrop');
 const lightboxZoomIn = document.querySelector('.lightbox-zoom-in');
 const lightboxZoomOut = document.querySelector('.lightbox-zoom-out');
 const lightboxReset = document.querySelector('.lightbox-reset');
@@ -633,9 +489,7 @@ function resetZoom() {
     lightboxImage.style.transform = `scale(${currentZoom})`;
 }
 
-// Event listeners for lightbox
 lightboxClose.addEventListener('click', closeLightbox);
-lightboxBackdrop.addEventListener('click', closeLightbox);
 lightboxZoomIn.addEventListener('click', zoomIn);
 lightboxZoomOut.addEventListener('click', zoomOut);
 lightboxReset.addEventListener('click', resetZoom);
@@ -647,6 +501,11 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Close lightbox by clicking backdrop
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+});
+
 // Zoom with mouse wheel
 lightbox.addEventListener('wheel', (e) => {
     e.preventDefault();
@@ -655,103 +514,11 @@ lightbox.addEventListener('wheel', (e) => {
     } else {
         zoomOut();
     }
-});
+}, { passive: false });
 
-// Make modal images clickable for lightbox
+// Make modal carousel images clickable for lightbox
 document.addEventListener('click', (e) => {
-    // Check if clicked element is an image in the modal
     if (e.target.matches('.carousel-slide img')) {
         openLightbox(e.target.src);
     }
 });
-
-// ====================================
-// LATEST CAROUSEL
-// ====================================
-(function () {
-    const track = document.getElementById('latestTrack');
-    if (!track) return;
-
-    const cards = Array.from(track.querySelectorAll('.latest-card'));
-    const dots = Array.from(document.querySelectorAll('.latest-dot'));
-    const prevBtn = document.getElementById('latestPrev');
-    const nextBtn = document.getElementById('latestNext');
-    const total = cards.length;
-    let current = 0;
-
-    function goTo(index) {
-        current = (index + total) % total;
-        track.style.transform = `translateX(-${current * 100}%)`;
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
-        if (prevBtn) prevBtn.disabled = false;
-        if (nextBtn) nextBtn.disabled = false;
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
-    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
-
-    // Touch swipe
-    let touchStartX = 0;
-    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
-        const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
-    }, { passive: true });
-
-    goTo(0);
-})();
-
-// Initialize animations on load
-document.addEventListener('DOMContentLoaded', () => {
-    // Cards are already observed above
-});
-
-// ====================================
-// HERO TYPEWRITER
-// ====================================
-(function () {
-    const phrases = [
-        "Building user-friendly systems.",
-        "Surfacing insights from data.",
-        "Teaching what I learn.",
-        "Using AI along the way.",
-        "Shipping things that matter."
-    ];
-
-    const el = document.getElementById('heroTyped');
-    if (!el) return;
-
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
-    function tick() {
-        const phrase = phrases[phraseIndex];
-
-        if (isDeleting) {
-            charIndex--;
-        } else {
-            charIndex++;
-        }
-
-        el.textContent = phrase.slice(0, charIndex);
-
-        let delay = isDeleting ? 22 : 45;
-
-        if (!isDeleting && charIndex === phrase.length) {
-            delay = 2000;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            delay = 400;
-        }
-
-        setTimeout(tick, delay);
-    }
-
-    // Kick off after hero fade-in completes
-    setTimeout(tick, 1400);
-})();
-
