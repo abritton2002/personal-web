@@ -522,3 +522,83 @@ document.addEventListener('click', (e) => {
         openLightbox(e.target.src);
     }
 });
+
+// ====================================
+// CODEX DRAGON PET
+// ====================================
+const codexDragonPet = document.getElementById('codexDragonPet');
+
+function initCodexDragonPet() {
+    if (!codexDragonPet) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const safePadding = 16;
+    let lastX = safePadding;
+    let lastY = safePadding;
+    let dragonTimer;
+
+    function petSize() {
+        const rect = codexDragonPet.getBoundingClientRect();
+        return {
+            width: rect.width || 80,
+            height: rect.height || 64
+        };
+    }
+
+    function getSafeLandingSpots() {
+        const { width, height } = petSize();
+        const maxX = Math.max(safePadding, window.innerWidth - width - safePadding);
+        const maxY = Math.max(safePadding, window.innerHeight - height - safePadding);
+        const midX = Math.max(safePadding, (window.innerWidth - width) / 2);
+        const midY = Math.max(safePadding, (window.innerHeight - height) / 2);
+
+        return [
+            { x: safePadding, y: safePadding },
+            { x: maxX, y: safePadding + 8 },
+            { x: safePadding + 6, y: maxY },
+            { x: maxX, y: maxY - 8 },
+            { x: midX, y: safePadding },
+            { x: maxX, y: midY },
+            { x: midX, y: maxY },
+            { x: safePadding, y: midY }
+        ];
+    }
+
+    function pickNextSpot() {
+        const spots = getSafeLandingSpots();
+        const farSpots = spots.filter((spot) => {
+            const distance = Math.hypot(spot.x - lastX, spot.y - lastY);
+            return distance > 140;
+        });
+        const candidates = farSpots.length ? farSpots : spots;
+        return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    function moveDragon() {
+        const next = reducedMotion ? { x: safePadding, y: window.innerHeight - petSize().height - safePadding } : pickNextSpot();
+        const direction = next.x < lastX ? -1 : 1;
+        codexDragonPet.classList.add('is-dashing');
+        codexDragonPet.style.transform = `translate3d(${next.x}px, ${next.y}px, 0) scaleX(${direction})`;
+        lastX = next.x;
+        lastY = next.y;
+
+        window.setTimeout(() => {
+            codexDragonPet.classList.remove('is-dashing');
+        }, 760);
+    }
+
+    function scheduleDragon() {
+        window.clearInterval(dragonTimer);
+        if (reducedMotion) {
+            moveDragon();
+            return;
+        }
+        moveDragon();
+        dragonTimer = window.setInterval(moveDragon, 2400 + Math.random() * 1300);
+    }
+
+    window.addEventListener('resize', scheduleDragon);
+    scheduleDragon();
+}
+
+initCodexDragonPet();

@@ -685,3 +685,168 @@ footer a:hover {
         max-height: 240px;
     }
 }
+
+/* ====================================
+   17. CODEX DRAGON PET
+   ==================================== */
+.codex-dragon-pet {
+    --dragon-size: clamp(62px, 8vw, 96px);
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    width: var(--dragon-size);
+    height: calc(var(--dragon-size) * 0.8);
+    z-index: 900;
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    transition: transform 1.25s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform;
+}
+
+.codex-dragon-pet.is-dashing {
+    transition-duration: 0.72s;
+}
+
+
+.dragon-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    animation: dragon-bop 0.92s ease-in-out infinite;
+    transform-origin: 50% 72%;
+}
+
+.dragon-body {
+    transform-origin: 70px 68px;
+    animation: dragon-wiggle 1.15s ease-in-out infinite;
+}
+
+.dragon-head,
+.dragon-torso,
+.dragon-tail,
+.dragon-foot {
+    fill: url(#dragonBelly);
+    stroke: #020207;
+    stroke-width: 3;
+    stroke-linejoin: round;
+}
+
+.dragon-belly {
+    fill: #1c1c26;
+    stroke: #343444;
+    stroke-width: 2;
+    opacity: 0.9;
+}
+
+.dragon-wing {
+    fill: url(#dragonWing);
+    stroke: #050509;
+    stroke-width: 3;
+    stroke-linejoin: round;
+    transform-origin: 70px 63px;
+    animation: dragon-flap 0.46s ease-in-out infinite alternate;
+}
+
+.dragon-wing-left {
+    animation-delay: -0.08s;
+}
+
+.dragon-wing-right {
+    animation-delay: 0.08s;
+}
+
+.dragon-horn,
+.dragon-frill {
+    fill: #8a82ff;
+    stroke: #08080d;
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.dragon-eye {
+    fill: #c6ff5e;
+    stroke: #061205;
+    stroke-width: 2;
+}
+
+.dragon-eye-shine {
+    fill: #fff;
+}
+
+.dragon-smile {
+    fill: none;
+    stroke: #c8bfff;
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.dragon-cheek {
+    fill: #795dff;
+    opacity: 0.35;
+}
+
+.dragon-sparkle {
+    position: absolute;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: #8a82ff;
+    box-shadow: 0 0 0.8rem #8a82ff;
+    opacity: 0;
+    animation: dragon-spark 1.8s ease-in-out infinite;
+}
+
+.dragon-sparkle-one {
+    top: 12%;
+    right: 6%;
+}
+
+.dragon-sparkle-two {
+    bottom: 10%;
+    left: 8%;
+    animation-delay: 0.85s;
+}
+
+@keyframes dragon-bop {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    45% { transform: translateY(-9px) rotate(3deg); }
+    70% { transform: translateY(-3px) rotate(-4deg); }
+}
+
+@keyframes dragon-wiggle {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50% { transform: rotate(2deg); }
+}
+
+@keyframes dragon-flap {
+    from { transform: rotate(-7deg) scaleY(0.94); }
+    to { transform: rotate(9deg) scaleY(1.08); }
+}
+
+@keyframes dragon-spark {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(0.4); opacity: 0; }
+    35% { opacity: 0.9; }
+    70% { transform: translate3d(-0.9rem, -0.7rem, 0) scale(1); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .codex-dragon-pet,
+    .codex-dragon-pet.is-dashing {
+        transition: none;
+    }
+
+    .dragon-svg,
+    .dragon-body,
+    .dragon-wing,
+    .dragon-sparkle {
+        animation: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .codex-dragon-pet {
+        --dragon-size: 58px;
+        z-index: 850;
+    }
+}

@@ -219,6 +219,48 @@
     </div>
 </div>
 
+<!-- Baby Codex Dragon Pet -->
+<div class="codex-dragon-pet" id="codexDragonPet" aria-hidden="true">
+    <div class="dragon-sparkle dragon-sparkle-one"></div>
+    <div class="dragon-sparkle dragon-sparkle-two"></div>
+    <svg class="dragon-svg" viewBox="0 0 140 110" role="img" focusable="false">
+        <defs>
+            <radialGradient id="dragonBelly" cx="45%" cy="42%" r="65%">
+                <stop offset="0%" stop-color="#3a3a46"/>
+                <stop offset="100%" stop-color="#08080d"/>
+            </radialGradient>
+            <linearGradient id="dragonWing" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#2b2540"/>
+                <stop offset="100%" stop-color="#07070c"/>
+            </linearGradient>
+            <filter id="dragonGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.22"/>
+                <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#8d7cff" flood-opacity="0.22"/>
+            </filter>
+        </defs>
+        <g class="dragon-body" filter="url(#dragonGlow)">
+            <path class="dragon-tail" d="M31 72 C12 72 10 51 24 46 C12 52 20 67 34 62 C39 61 42 69 31 72Z"/>
+            <path class="dragon-wing dragon-wing-left" d="M51 54 C27 25 23 58 15 34 C18 76 40 76 58 64Z"/>
+            <path class="dragon-wing dragon-wing-right" d="M89 54 C116 22 119 60 128 35 C125 78 101 76 82 64Z"/>
+            <ellipse class="dragon-torso" cx="69" cy="67" rx="33" ry="26"/>
+            <ellipse class="dragon-belly" cx="69" cy="72" rx="17" ry="13"/>
+            <path class="dragon-head" d="M41 43 C41 21 62 13 78 22 C95 11 112 23 111 45 C110 66 92 75 74 69 C57 75 42 64 41 43Z"/>
+            <path class="dragon-horn dragon-horn-left" d="M55 24 L48 8 L66 18Z"/>
+            <path class="dragon-horn dragon-horn-right" d="M91 24 L101 9 L82 18Z"/>
+            <path class="dragon-frill" d="M72 18 L77 5 L82 20 M62 20 L62 7 L70 20"/>
+            <circle class="dragon-eye" cx="61" cy="42" r="6"/>
+            <circle class="dragon-eye" cx="88" cy="42" r="6"/>
+            <circle class="dragon-eye-shine" cx="63" cy="39" r="2"/>
+            <circle class="dragon-eye-shine" cx="90" cy="39" r="2"/>
+            <path class="dragon-smile" d="M66 53 C70 58 80 58 84 53"/>
+            <circle class="dragon-cheek" cx="52" cy="51" r="4"/>
+            <circle class="dragon-cheek" cx="98" cy="51" r="4"/>
+            <ellipse class="dragon-foot dragon-foot-left" cx="51" cy="90" rx="11" ry="7"/>
+            <ellipse class="dragon-foot dragon-foot-right" cx="89" cy="90" rx="11" ry="7"/>
+        </g>
+    </svg>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
