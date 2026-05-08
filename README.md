@@ -6,7 +6,7 @@ Live at [alexbbritton.com](https://alexbbritton.com)
 
 ## Stack
 
-- `index.html` — single-page site with sections: `/now`, `/who-i-am`, `/work`, `/writing`, `/contact`
+- `index.html` — single-page site with sections: `/now`, `/a-little-bit-more-about-who-i-am`, `/work`, `/writing`, `/contact`
 - `styles.css` — Georgia serif, Courier New mono, `#0000cc` blue links, 960px max-width
 - `script.js` — project modal system triggered by `[data-project]` attributes
 - `content/` — images, PDFs, videos, and article HTML files
