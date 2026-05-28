@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Agent Architecture Is Where the Work Actually Is | Alex Britton</title>
+    <meta name="description" content="A breakdown of how I designed the agent scaffold behind clivic, and why the scaffolding matters more than the model choice.">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..700;1,9..144,200..700&family=Space+Mono:ital,wght@0,400;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        body { background: var(--s0); }
+        .article-shell { max-width: 820px; margin: 0 auto; padding: 7rem 1.5rem 5rem; }
+        .article-back { display: inline-flex; margin-bottom: 2rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t2); }
+        .article-back:hover { color: var(--accent); }
+        .article-kicker { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+        .article-title { font-family: var(--font-display); font-size: clamp(2.3rem, 6vw, 4.8rem); font-weight: 400; line-height: 0.98; color: var(--t0); margin-bottom: 1rem; }
+        .article-dek { font-family: var(--font-display); color: var(--t1); font-size: 1.35rem; line-height: 1.4; margin-bottom: 1rem; }
+        .article-meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--t2); margin-bottom: 3rem; }
+        .article-body { font-family: var(--font-body); color: var(--t1); font-size: 1.04rem; line-height: 1.78; }
+        .article-body h2 { font-family: var(--font-display); font-size: clamp(1.45rem, 3vw, 2rem); font-weight: 400; color: var(--t0); margin: 3rem 0 1rem; }
+        .article-body p { margin-bottom: 1.2rem; }
+        .article-body ul { margin: 0 0 1.4rem 1.3rem; }
+        .article-body li { margin-bottom: 0.45rem; }
+        .article-body blockquote { border-left: 2px solid var(--accent); margin: 2rem 0; padding: 0.25rem 0 0.25rem 1.25rem; color: var(--t0); font-family: var(--font-display); font-size: 1.35rem; line-height: 1.35; }
+        .article-body code { font-family: var(--font-mono); font-size: 0.9em; background: var(--s1); padding: 0.15em 0.4em; border-radius: 3px; }
+        @media (max-width: 720px) { .article-shell { padding-top: 6rem; } .article-body { font-size: 1rem; } }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="header-nav">
+            <a href="../../index.html" class="nav-logo">AB</a>
+            <div class="nav-links">
+                <a href="../../index.html#latest" class="nav-link">Latest</a>
+                <a href="../../index.html#work" class="nav-link">Work</a>
+                <a href="../../index.html#writing" class="nav-link">Writing</a>
+                <a href="../../index.html#about" class="nav-link">About</a>
+                <a href="mailto:abritton2002@gmail.com" class="nav-link">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-shell">
+        <a href="../../index.html#writing" class="article-back">Back to writing</a>
+        <p class="article-kicker">The Learning SpAIce</p>
+        <h1 class="article-title">Good Agent Architecture Is Where the Work Actually Is</h1>
+        <p class="article-dek">A breakdown of how I designed the scaffold behind clivic, and why that layer matters more than which model you pick.</p>
+        <p class="article-meta">Alex Britton | May 2026</p>
+
+        <article class="article-body">
+
+            <p>Everyone's obsessing over which model to use. GPT-5, Claude, Qwen, Llama. That conversation matters, model quality does affect outcomes, but after building AI agents into real internal tooling at Driveline Baseball I'm pretty convinced the model is only half of what determines whether something actually works.</p>
+
+            <p>The other half is the scaffolding around it: how you build context, how you structure tool calls, how you handle failures, and how you define done. A well-designed agent scaffold makes a good-enough model useful on a real task. A sloppy one makes a great model useless. I've watched both happen.</p>
+
+            <p>This matters especially under compute constraints. I'm running Qwen3-Coder-30B on a single A10 GPU on Modal, which is real hardware with real limits. Context windows fill up, latency matters, and a 30B model needs more guidance than a 200B system would naturally give itself. The scaffold isn't decoration here; it's doing structural work.</p>
+
+            <h2>What the scaffold actually needs to answer</h2>
+
+            <p>On every turn, a coding agent needs to answer 3 questions: what context does the model need right now, what tools can it call with what constraints, and how do I know when the task is actually done? Most implementations answer the first question by dumping everything into context and hoping the model sorts it out. They skip the second entirely. And they answer the third with "when it stops calling tools," which fails in basically every non-trivial case.</p>
+
+            <h2>How I designed mine</h2>
+
+            <p>The code index in clivic is SQLite-backed with symbol extraction, chunked source, and import graph edges, but it doesn't run on startup. It builds the first time a retrieval tool actually needs it. This isn't just a startup-time optimization; it's a constraint on how the model gets information. It asks for what it needs, you give it exactly that, and the context window stays clean for the actual task.</p>
+
+            <p>The system prompt encodes tool-use rules as behavioral contracts: batch independent reads in one turn, use <code>multi_edit</code> instead of sequential single-file edits, run <code>grep</code> to find the exact region before reading a whole file. On a 30B model with a limited context window, wasted turns are wasted tokens. The prompt engineering that pays off most is the kind that stops the model from burning turns on things it doesn't need to do.</p>
+
+            <p>At specific turn counts, the runner injects structured reminders into the conversation as user messages. Turn 3: have you understood the task? Turn 6: have you planned the changes? Turn 10: have you confirmed your exact edit locations? Near the turn budget the message shifts to something like "X turns remaining, are you done?" This sounds almost patronizing written out, but it materially improves task completion on a smaller model that can't self-organize as naturally as a frontier system running on unlimited compute.</p>
+
+            <h2>The part I care most about</h2>
+
+            <p><strong>A run is FAIL by default.</strong> It only resolves as success if the agent calls <code>mark_complete</code>, or if a real validation command (unit tests, a build, whatever the project uses) exits 0 after the agent made edits. There's no "I think I'm done," no defaulting to success because it ran out of turns and didn't crash. This came directly from watching agents on less disciplined setups confidently declare they'd finished while leaving tests broken, and deciding that optimistic defaults were the wrong call.</p>
+
+            <p>When context gets long, the runner compacts older tool observations by replacing them with stubs. It keeps the fact that a tool ran without keeping the full output in context. This matters because without it the model gets buried in its own history on long tasks and starts losing track of what it already did, which wastes turns and produces worse edits.</p>
+
+            <h2>You have to measure it</h2>
+
+            <p>None of this matters if you can't measure it. The companion project clivic-eval is a Python benchmark that runs real coding tasks against the model with ground-truth pass/fail criteria. Before a feature ships to clivic, I have a test that checks whether the model can reliably do what that feature requires, not just whether it seemed to work once on my prompt.</p>
+
+            <p>A measured pass rate across 40 task instances is a different thing than "it worked in my test run." When you're betting real internal workflows on a 30B model you're hosting yourself, the benchmark is what earns that bet. Skipping it means you're shipping on vibes, and that catches up with you fast.</p>
+
+            <p>The model is one variable. The scaffolding around it is where the actual engineering happens.</p>
+
+        </article>
+    </main>
+</body>
+</html>
