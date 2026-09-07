@@ -231,6 +231,20 @@ const projectsData = {
         video: null,
         socialLinks: null,
         additionalImages: null
+    },
+    20: {
+        title: "altr",
+        tag: "Venture",
+        description: "A software and AI strategy firm in Tampa I co-founded with Jarred Robidoux. We work with operations-heavy teams — real estate, law firms, nonprofits, ecommerce — where the week runs on spreadsheets, PDFs, inboxes, and the same analysis repeated on every deal.\n\nThe order matters. Enablement first: we sit with the one to four people who own a process, work against their real files, and leave a written map of that workflow. A build only happens if enablement finds something worth building, and it is quoted as one fixed fee against written scope. The advisory retainer comes last, never as an entry point. Nothing gets built because it demos well.\n\nWhat we ship is engineering, not prompt packs: multi-step agent orchestrations that act on their own, and MCP servers wiring agents into the tools and permissions a team already has, deployed and monitored rather than run by hand.\n\nFor spARK Labs by ARK Invest we built one remote MCP server on Cloudflare Workers connecting four separate operations platforms — BossHub intake forms, Verkada building access, Nexudus memberships, and Outlook — to Claude behind a Microsoft OAuth endpoint with an email allowlist. Nothing to install, no API keys handed around, no per-user setup. Writes to building access sit behind a dry-run flag, and Outlook drafts are never sent automatically. Same client, separate engagement: expense reports and event requests packaged into Claude Cowork as skills plus connectors, so a monthly folder of receipt PDFs becomes a filled-in Excel report from one slash command.\n\nFor Fishin Prints, a reviewing agent reads a customer's catch photo and writes the production brief an artist would otherwise put together by hand — species cues, body shape, colors, markings, fins — and that brief drives the artwork generation. Every order takes the same route.\n\nA few things we hold to: the model is not the product, workflow comes before automation, boundaries create trust, and the team should be stronger after we leave. No mystery machinery — the operating notes, prompts, and workflows stay with them. Fees are never published; they are quoted on a call and put in writing before anything is committed.\n\nI build and maintain altrwork.com too — static site, warm paper theme, hand-written schema, and vCard QR codes with the contact data encoded in the code itself, so there is no hosted redirect to expire.",
+        image: "content/altr-site.png",
+        tech: ["MCP", "Cloudflare Workers", "Claude", "Claude Cowork", "Microsoft OAuth", "Microsoft Graph API", "JavaScript", "Static Site"],
+        liveLink: "https://altrwork.com/",
+        liveLinkLabel: "Visit altrwork.com",
+        codeLink: "https://altrwork.com/impact-studies.html",
+        codeLinkLabel: "Impact Studies",
+        video: null,
+        socialLinks: null,
+        additionalImages: ["content/altr-logo.png"]
     }
 };
 
@@ -343,6 +357,7 @@ function openModal(projectId) {
     // Code link
     const hasCode = project.codeLink && project.codeLink !== '#';
     modalCodeLink.href = hasCode ? project.codeLink : '#';
+    modalCodeLink.textContent = project.codeLinkLabel || 'Source Code';
     modalCodeLink.style.display = hasCode ? 'inline' : 'none';
 
     // Tech tags
