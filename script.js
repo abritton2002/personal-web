@@ -234,8 +234,8 @@ const projectsData = {
     },
     20: {
         title: "altr",
-        tag: "Co-founder · Engineering",
-        description: "altr is the AI consulting and enablement firm I co-founded with Jarred Robidoux in Tampa. We work with teams across the country, most of them in commercial real estate, and the order is always the same: teach the team to use Claude against its own files first, then build only where that turns up something worth building.\n\nI lead the engineering. What ships is software, not prompt packs: remote MCP servers on Cloudflare Workers that let Claude read and write a team's own records behind OAuth, agents and workflow automations, and the ingest pipelines underneath them.\n\nThe largest is CRE Harness: a four-county Tampa Bay property records connector and a broker opinion of value (BOV) generator, with mortr, a CRE CRM, sharing the same store. Others include a remote MCP server connecting four operations platforms to Claude for spARK Labs by ARK Invest, and a Manhattan office condo registry shipped as a Claude Desktop extension.",
+        tag: "Venture",
+        description: "altr is the AI consulting firm I co-founded with Jarred Robidoux in Tampa. We work with teams across the country, a lot of them in commercial real estate: first helping them use Claude on the work they already do, then building the systems worth building.\n\nI handle most of the engineering. That means remote MCP servers on Cloudflare Workers that connect Claude to a team's own tools and records, agents, and the data pipelines underneath them. The biggest so far is CRE Harness, which turns a Tampa Bay property address into a branded broker opinion of value from county public record.",
         image: "content/altr-site.png",
         tech: ["MCP", "Cloudflare Workers", "D1", "Claude", "Claude Cowork", "OAuth", "TypeScript", "Python"],
         liveLink: "https://altrwork.com/",

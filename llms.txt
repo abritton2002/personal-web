@@ -25,13 +25,10 @@ engineering degree, Embry-Riddle.
 
 ## Built at altr
 
-- [CRE Harness](https://altrwork.com/impact-real-estate-property-intelligence.html): property address to a branded broker opinion of value (BOV) from public record
-- [Florida county records MCP server](https://altrwork.com/impact-cre-county-records-connector.html): Hillsborough, Pinellas, Pasco and Polk property records inside Claude, OAuth sign-in
-- [mortr](https://altrwork.com/mortr.html): CRE CRM sharing one store with the MCP server
-- [Manhattan office condo registry](https://altrwork.com/impact-manhattan-office-condo-registry.html): ACRIS, Tax Map and DOF roll joined into a Claude Desktop extension
-- [spARK Labs remote MCP server](https://altrwork.com/impact-spark-labs-mcp.html): four operations platforms behind one Cloudflare Workers endpoint
-- [BeBrief Codex enablement](https://altrwork.com/impact-bebrief.html): review agents, remote agents and MCP tools in a full-stack team's build
-- [MCP servers on Cloudflare Workers](https://altrwork.com/impact-cloudflare-workers-architecture.html): the deployment pattern behind the above
+- [CRE Harness](https://altrwork.com/impact-real-estate-property-intelligence.html): property address to a branded broker opinion of value from Florida public record
+- [Manhattan office condo registry](https://altrwork.com/impact-manhattan-office-condo-registry.html): Claude Desktop extension over Manhattan office condo ownership records
+- [spARK Labs remote MCP server](https://altrwork.com/impact-spark-labs-mcp.html): four operations tools connected to Claude through one endpoint
+- [All altr case studies](https://altrwork.com/case-studies.html)
 
 ## Other projects
 

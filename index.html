@@ -174,11 +174,10 @@
     <section id="now">
         <h2>/now</h2>
         <p>I am a forward deployed engineer at Driveline Baseball, building practical software, data pipelines, and internal systems close to the people who use them.</p>
-        <p>Outside of Driveline, I co-founded <a href="https://altrwork.com/">altr</a> with Jarred Robidoux. altr is an AI consulting and enablement firm based in Tampa that works with teams across the country, most of them in commercial real estate. I lead the engineering side: remote MCP servers that connect Claude to a team's own records, agents and workflow automations, and the data pipelines underneath them. The largest is CRE Harness, a property records and valuation system for Tampa Bay brokers (<a href="#altr-work">more below</a>).</p>
-        <p>Right now I am focused on LLM-assisted workflows, agentic coding, and side projects that turn effort into compounding tools and assets. For the fuller personal context, read <a href="about.html">a little bit more about who I am</a>.</p>
+        <p>Right now I am focused on LLM-assisted workflows, agentic coding, and side projects that turn effort into compounding tools and assets. Outside of Driveline, I co-founded <a href="https://altrwork.com/">altr</a>, an AI consulting firm in Tampa, where I build the MCP servers and agents behind our client work, a lot of it for commercial real estate. For the fuller personal context, read <a href="about.html">a little bit more about who I am</a>.</p>
         <h3>"Ventures and side hustles" <span class="ventures-sub">— entrepreneurial spirit expressed through trial and error</span></h3>
         <ul class="ventures-list">
-            <li><a href="https://altrwork.com/">altr</a> — AI consulting and enablement firm in Tampa, co-founded. Enablement first, then MCP servers and agents where the work justifies them. <a href="https://altrwork.com/case-studies.html">case studies</a> · <a href="https://altrwork.com/learn.html">learning center</a> · <a href="https://github.com/altrwork" target="_blank" rel="noopener">github</a> · <a href="https://www.linkedin.com/company/altrwork/" target="_blank" rel="noopener">linkedin</a> <em>(Active)</em></li>
+            <li><a href="https://altrwork.com/">altr</a> — AI consulting firm in Tampa, co-founded. We help teams use AI in the work they already do, then build what's worth building. <a href="https://altrwork.com/case-studies.html">work</a> · <a href="https://altrwork.com/learn.html">blog</a> · <a href="https://www.linkedin.com/company/altrwork/" target="_blank" rel="noopener">linkedin</a> <em>(Active)</em></li>
             <li><a href="https://flybebrief.com/" target="_blank" rel="noopener">BeBrief</a> — Pilot briefing app for general aviation. Pursuing FAA approval. <em>(Active)</em></li>
             <li><a href="https://uncreated.shop/" target="_blank" rel="noopener">UNCREATED LLC</a> — Custom streetwear brand, co-founded. <em>(Active)</em></li>
             <li><a href="https://loopfireai.com/#results" target="_blank" rel="noopener">Loopfire AI</a> — LLM contracting. LangChain RAG pipelines, Claude and OpenAI API workflows. <em>(Contract, 2025)</em></li>
@@ -193,16 +192,13 @@
         <h2>/work</h2>
 
         <div class="project-group" id="altr-work">
-            <span class="project-group-label">MCP Servers, Agents &amp; Automation — built at <a href="https://altrwork.com/" style="text-transform: none">altr</a></span>
+            <span class="project-group-label">AI Agents &amp; MCP</span>
             <ul class="project-list">
-                <li><a href="#" data-project="20">altr</a> — The firm itself: site, structured data, and the engineering stack every client system ships on. <span class="tech">[MCP, Cloudflare Workers, Claude]</span></li>
-                <li><a href="https://altrwork.com/impact-real-estate-property-intelligence.html">CRE Harness</a> — Property research and broker opinion of value (BOV) system for commercial real estate teams. An address in, a branded PDF out: screened comparable sales, zoning, flood, debt, and the people behind the owning LLC. <span class="tech">[TypeScript, MCP, Cloudflare Workers, D1, Browser Rendering]</span></li>
-                <li><a href="https://altrwork.com/impact-cre-county-records-connector.html">Florida county records MCP server</a> — Remote MCP server over Hillsborough, Pinellas, Pasco and Polk property records, about 1.7M parcels, with OAuth sign-in so Claude can write as the broker as well as read. <span class="tech">[MCP, OAuth, D1, Python ingest]</span></li>
-                <li><a href="https://altrwork.com/mortr.html">mortr</a> — CRM for CRE teams that shares one store with the MCP server, so the app's screens and a broker working in Claude read and write the same contacts, deals and documents. <span class="tech">[Cloudflare Workers, Stripe, OAuth]</span></li>
-                <li><a href="https://altrwork.com/impact-manhattan-office-condo-registry.html">Manhattan office condo registry</a> — Every Manhattan office condominium joined from ACRIS, the Digital Tax Map and the DOF roll, shipped as a single Claude Desktop extension. <span class="tech">[Python, MCP, .mcpb]</span></li>
-                <li><a href="https://altrwork.com/impact-spark-labs-mcp.html">spARK Labs remote MCP server</a> — One endpoint connecting Claude to BossHub, Verkada, Nexudus and Outlook for the ARK Invest-backed incubator in St. Petersburg, behind Microsoft sign-in. <span class="tech">[MCP, Cloudflare Workers, Microsoft Graph]</span></li>
-                <li><a href="https://altrwork.com/impact-bebrief.html">BeBrief Codex enablement</a> — Code review and security review agents, remote agents and MCP tools set up inside a full-stack team's build process. <span class="tech">[Codex, MCP, GitHub]</span></li>
-                <li><a href="https://altrwork.com/impact-cloudflare-workers-architecture.html">Why every connector runs on Workers</a> — The deployment pattern behind all of the above: stateless MCP servers, D1, cron ingest, service bindings. <span class="tech">[Architecture]</span></li>
+                <li><a href="#" data-project="20">altr</a> — AI consulting firm I co-founded in Tampa. Site, brand, and the client systems behind it. <span class="tech">[MCP, Cloudflare Workers, Claude]</span></li>
+                <li><a href="https://altrwork.com/impact-real-estate-property-intelligence.html">CRE Harness</a> — Property address to a branded broker opinion of value, built on four Florida counties of public record. Built at altr. <span class="tech">[TypeScript, MCP, Cloudflare Workers, D1]</span></li>
+                <li><a href="https://altrwork.com/impact-manhattan-office-condo-registry.html">Manhattan Condo Registry</a> — Every Manhattan office condo and its deed history, packaged as a Claude Desktop extension. Built at altr. <span class="tech">[Python, MCP]</span></li>
+                <li><a href="https://altrwork.com/impact-spark-labs-mcp.html">spARK Labs MCP</a> — One remote MCP server connecting Claude to four operations tools for an incubator in St. Pete. Built at altr. <span class="tech">[MCP, Cloudflare Workers, Microsoft Graph]</span></li>
+                <li><a href="#" data-project="5">DL SQL MCP</a> — MCP server for natural language queries over Driveline's biomechanics databases via Claude. <span class="tech">[Python, MCP, MySQL]</span></li>
             </ul>
         </div>
 
@@ -232,7 +228,6 @@
             <ul class="project-list">
                 <li><a href="#" data-project="2">EMG Processing Pipeline</a> — 96+ metrics per event from Delsys Trigno sensors with Slack QC notifications. <span class="tech">[Python, SciPy]</span></li>
                 <li><a href="#" data-project="4">Bat Path Visuals</a> — 3D swing visualization and PDF report generation for athlete assessments. <span class="tech">[Python, Matplotlib]</span></li>
-                <li><a href="#" data-project="5">DL SQL MCP</a> — MCP server for natural language queries over Driveline's biomechanics databases via Claude. <span class="tech">[Python, MCP, MySQL]</span></li>
             </ul>
         </div>
 
@@ -282,8 +277,6 @@
             <a href="https://github.com/abritton2002" target="_blank" rel="me noopener noreferrer">GitHub</a> ·
             <a href="https://www.linkedin.com/in/alexander-britton-0bb687205/" target="_blank" rel="me noopener noreferrer">LinkedIn</a> ·
             <a href="https://x.com/alexbbritton22" target="_blank" rel="me noopener noreferrer">Twitter</a>
-        </p>
-        <p>For altr work — AI enablement, MCP servers, or agents for a commercial real estate or operations team — reach the firm at <a href="https://altrwork.com/contact.html">altrwork.com/contact</a>.
         </p>
     </section>
 
