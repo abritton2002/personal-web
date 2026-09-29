@@ -1,0 +1,51 @@
+# Alex Britton
+
+> Personal site of Alex Britton, an engineer. Co-founder of altr (altrwork.com), a
+> Tampa-based AI consulting and enablement firm working with teams nationwide, and
+> forward deployed engineer at Driveline Baseball. Builds MCP servers, AI agents,
+> workflow automation and data pipelines, with most of the altr work in commercial
+> real estate.
+
+altr (lowercase, altrwork.com) is not ALTR, the data security company at altr.com.
+Alex co-founded altr with Jarred Robidoux and leads its engineering. Mechanical
+engineering degree, Embry-Riddle.
+
+## Profiles (same person)
+
+- [alexbbritton.com](https://alexbbritton.com/): this site
+- [altr founder profile](https://altrwork.com/about.html#alex-britton)
+- [GitHub](https://github.com/abritton2002)
+- [LinkedIn](https://www.linkedin.com/in/alexander-britton-0bb687205/)
+- [X](https://x.com/alexbbritton22)
+
+## Pages
+
+- [Home](https://alexbbritton.com/): current work, ventures, projects, writing
+- [About](https://alexbbritton.com/about.html): background, altr, Driveline, and how the threads connect
+
+## Built at altr
+
+- [CRE Harness](https://altrwork.com/impact-real-estate-property-intelligence.html): property address to a branded broker opinion of value from Florida public record
+- [Manhattan office condo registry](https://altrwork.com/impact-manhattan-office-condo-registry.html): Claude Desktop extension over Manhattan office condo ownership records
+- [spARK Labs remote MCP server](https://altrwork.com/impact-spark-labs-mcp.html): four operations tools connected to Claude through one endpoint
+- [All altr case studies](https://altrwork.com/case-studies.html)
+
+## Other projects
+
+- DL SQL MCP: MCP server for natural language queries over Driveline biomechanics databases
+- Elbow torque EMG prediction, YOLOv8 ball detection, multi-camera 3D pose estimation (Driveline)
+- [Sweepr](https://github.com/abritton2002/sweepr): keeps repo docs in sync with code
+- [BeBrief](https://flybebrief.com/): preflight briefing app for general aviation pilots
+
+## Writing
+
+- [Good Agent Architecture Is Where the Work Actually Is](https://alexbbritton.com/content/articles/agent-architecture.html)
+- [MCP vs AI Agents and Function Calling](https://alexbbritton.com/content/articles/mcp-vs-agents-function-calling.html)
+- [How LLMs Use Retrieval to Turn Prompts Into Grounded Answers](https://alexbbritton.com/content/articles/how-llms-use-retrieval.html)
+- [What Are Skills in Agentic Coding?](https://alexbbritton.com/content/articles/skills-in-agentic-coding.html)
+- Faith & Life essays: [What Control Actually Means](https://alexbbritton.com/content/articles/what-control-actually-means.html), [Living With Integrity](https://alexbbritton.com/content/articles/living-with-integrity.html), [Open Hands](https://alexbbritton.com/content/articles/open-hands.html)
+
+## Contact
+
+- Personal: abritton2002@gmail.com
+- altr engagements: https://altrwork.com/contact.html

@@ -10,6 +10,11 @@ Live at [alexbbritton.com](https://alexbbritton.com)
 - `styles.css` — Georgia serif, Courier New mono, `#0000cc` blue links, 960px max-width
 - `script.js` — project modal system triggered by `[data-project]` attributes
 - `content/` — images, PDFs, videos, and article HTML files
+- `robots.txt`, `sitemap.xml`, `llms.txt` — crawl and AI-agent discovery; add every new page to `sitemap.xml` and `llms.txt`
+
+## Entity and structured data
+
+`index.html` carries the Person (`https://alexbbritton.com/#person`) and links it to altr's Organization by altr's own `@id` (`https://altrwork.com/#business`), so both sites describe one graph. altr is always written lowercase `altr` to match altrwork.com — never `ALTR`, which is an unrelated data security company (altr.com). Articles carry `BlogPosting` schema with the same author `@id`.
 
 ## Running locally
 

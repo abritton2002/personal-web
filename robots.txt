@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alexbbritton.com/sitemap.xml

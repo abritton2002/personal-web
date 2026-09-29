@@ -235,13 +235,13 @@ const projectsData = {
     20: {
         title: "altr",
         tag: "Venture",
-        description: "A software and AI strategy firm in Tampa. We work with operations-heavy teams — real estate, law firms, nonprofits, ecommerce — finding the work they repeat every week and building the systems that handle it.\n\nEnablement first, against the team's own files. A build only if enablement turns up something worth building. What ships is engineering, not prompt packs: agent orchestrations and MCP servers wired into the tools a team already has.\n\nRecent work: a remote MCP server on Cloudflare Workers connecting four operations platforms to Claude for spARK Labs by ARK Invest, and an agent that turns a customer's catch photo into a production brief for Fishin Prints.",
+        description: "altr is the AI consulting firm I co-founded with Jarred Robidoux in Tampa. We work with teams across the country, a lot of them in commercial real estate: first helping them use Claude on the work they already do, then building the systems worth building.\n\nI handle most of the engineering. That means remote MCP servers on Cloudflare Workers that connect Claude to a team's own tools and records, agents, and the data pipelines underneath them. The biggest so far is CRE Harness, which turns a Tampa Bay property address into a branded broker opinion of value from county public record.",
         image: "content/altr-site.png",
-        tech: ["MCP", "Cloudflare Workers", "Claude", "Claude Cowork", "Microsoft OAuth", "Microsoft Graph API", "JavaScript", "Static Site"],
+        tech: ["MCP", "Cloudflare Workers", "D1", "Claude", "Claude Cowork", "OAuth", "TypeScript", "Python"],
         liveLink: "https://altrwork.com/",
         liveLinkLabel: "Visit altrwork.com",
-        codeLink: "https://altrwork.com/impact-studies.html",
-        codeLinkLabel: "Impact Studies",
+        codeLink: "https://altrwork.com/case-studies.html",
+        codeLinkLabel: "Case Studies",
         video: null,
         socialLinks: null,
         additionalImages: ["content/altr-logo.png"]
